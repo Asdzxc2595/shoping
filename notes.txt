@@ -1,0 +1,6 @@
+// confirm alert
+onClick = "return confirm('messages')"
+
+// redirect
+header("location:path");
+exit(0);
