@@ -13,10 +13,34 @@ require("dbconnect.php");
     <link href="assets/fontawesome/css/fontawesome.css" rel="stylesheet">
     <link href="assets/fontawesome/css/brands.css" rel="stylesheet">
     <link href="assets/fontawesome/css/solid.css" rel="stylesheet">
-    <title>Book Whales</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>สมัครสมาชิก</title>
+    <style>
+    #darkModeButton {
+        background-color: white; /* เปลี่ยนสีพื้นหลังเป็นขาว */
+        color: black; /* เปลี่ยนสีตัวอักษรเป็นดำ */
+         }
+        .sale {
+            color: #E53935
+        }
+
+        .sale-badge {
+            background-color: #E53935
+        }.navbar {
+            border: 10px solid black;
+        }
+    .carousel-item {
+        height: 10vh;
+    }
+    .dark-mode {
+    background-color: #000;
+    color: #fff; 
+}
+        
+    </style>
 </head>
 
-<body>
+<body id="body">
     <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
@@ -27,7 +51,7 @@ require("dbconnect.php");
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
                     <li class="nav-item mx-3">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link" href="index.php">
                             <h5 class="fw-semibold">หน้าหลัก</h5>
                         </a>
                     </li>
@@ -46,8 +70,13 @@ require("dbconnect.php");
                             <h5 class="fw-semibold">ข่าวสารและโปรโมชั่น</h5>
                         </a>
                     </li>
+                    <li class="nav-item mx-3">
+                        <button id="darkModeButton" class="btn btn-primary">
+                             <span id="darkModeIcon">🌙</span> Dark Mode
+                        </button>
+                     </li>
                     <li class="nav-item mx-3 d-lg-none d-xl-none">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="loginform.php">
                             <h5 class="fw-semibold">ล็อคอิน</h5>
                         </a>
                     </li>
@@ -59,7 +88,7 @@ require("dbconnect.php");
                 </ul>
                 <ul class="navbar-nav d-none d-lg-flex d-xl-flex">
                     <li class="nav-item mx-1">
-                        <a class="nav-link" href="login.php">
+                        <a class="nav-link" href="loginform.php">
                             <h5 class="fw-semibold">ลงชื่อเข้าใช้ระบบ</h5>
                         </a>
                     </li>
@@ -76,7 +105,8 @@ require("dbconnect.php");
     <section style="margin-top: 1%;">
         <div class="container">
             <div class="fw-bold fs-4 text-center">สมัครสมาชิกเป็นนักอ่านหนังสือ</div>
-            <form action="registerbuyer.php" method="POST" class="needs-validation" novalidate>
+            <form action="registerbuyer.php" method="POST" enctype="multipart/form-data" class="needs-validation"
+                novalidate>
                 <div class="row d-flex justify-content-center align-items-center">
                     <div class="col-12">
                         <div class="row g-0">
@@ -84,6 +114,45 @@ require("dbconnect.php");
                                 <div class="p-5">
 
                                     <h3 class="fw-semibold mb-4 fs-5">ข้อมูลส่วนตัว</h3>
+
+                                    <div class="mb-4 pb-2">
+                                        <label class="form-label" for="email">อีเมล</label>
+                                        <input type="text" id="email" class="form-control form-control-lg" name="email"
+                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
+                                        <div class="invalid-feedback">กรุณากรอกอีเมล</div>
+                                    </div>
+
+                                    <div class="mb-4 pb-2">
+                                        <label class="form-label" for="password">รหัสผ่าน</label>
+                                        <input type="password" id="password" class="form-control form-control-lg"
+                                            name="password" pattern={4,}$  required />
+                                        <div class="invalid-feedback">กรุณากรอกรหัสผ่านอย่างน้อย4ตัว</div>
+                                    </div>
+
+                                    <div class="mb-4 pb-2">
+                                        <label class="form-label" for="confirmpassword">ยืนยันรหัสผ่าน</label>
+                                        <input type="password" id="confirmpassword" class="form-control form-control-lg"
+                                            required />
+                                        <div class="invalid-feedback">กรุณากรอกรหัสผ่านให้ตรงกัน</div>
+                                    </div>
+
+                                    <div class="mb-4 pb-2">
+                                        <label for="formFile" class="form-label">อัปโหลดรูปโปรไฟล์</label>
+                                        <input class="form-control" type="file" id="formFile" name="image"
+                                            accept="image/jpeg, image/png" onchange="previewImage(event)" required>
+                                        <div class="invalid-feedback">กรุณาอัปโหลดรูปภาพ</div>
+                                    </div>
+
+                                    <img id="profile-preview" src="#" class="border border-3" width="300"
+                                        height="300" />
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="p-5">
+
+                                    <h3 class="fw-semibold mb-4 fs-5">ข้อมูลสถานที่จัดส่ง</h3>
 
                                     <div class="row">
                                         <div class="col-md-6 mb-4 pb-2">
@@ -101,38 +170,9 @@ require("dbconnect.php");
                                     </div>
 
                                     <div class="mb-4 pb-2">
-                                        <label class="form-label" for="email">อีเมล</label>
-                                        <input type="text" id="email" class="form-control form-control-lg"
-                                            name="email" required />
-                                        <div class="invalid-feedback">กรุณากรอกอีเมล</div>
-                                    </div>
-
-                                    <div class="mb-4 pb-2">
-                                        <label class="form-label" for="password">รหัสผ่าน</label>
-                                        <input type="password" id="password" class="form-control form-control-lg"
-                                            name="password" required />
-                                        <div class="invalid-feedback">กรุณากรอกรหัสผ่าน</div>
-                                    </div>
-
-                                    <div class="mb-4 pb-2">
-                                        <label class="form-label" for="confirmpassword">ยืนยันรหัสผ่าน</label>
-                                        <input type="password" id="confirmpassword" class="form-control form-control-lg"
-                                            required />
-                                        <div class="invalid-feedback">กรุณากรอกรหัสผ่านให้ตรงกัน</div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="p-5">
-
-                                    <h3 class="fw-semibold mb-4 fs-5">ข้อมูลสถานที่จัดส่ง</h3>
-
-                                    <div class="mb-4 pb-2">
                                         <label class="form-label" for="address">ที่อยู่</label>
-                                        <textarea class="form-control" id="address" style="height: 100px"
-                                            name="address" required></textarea>
+                                        <textarea class="form-control" id="address" style="height: 100px" name="address"
+                                            required></textarea>
                                         <div class="invalid-feedback">กรุณากรอกข้อมูลที่อยู่</div>
                                     </div>
 
@@ -154,19 +194,19 @@ require("dbconnect.php");
                                         <div class="col-md-5 mb-4 pb-2">
                                             <label class="form-label" for="zipcode">รหัสไปรษณีย์</label>
                                             <input type="text" id="zipcode" class="form-control form-control-lg"
-                                                name="zipcode" required />
-                                            <div class="invalid-feedback">กรุณากรอกรหัสไปรษณีย์</div>
+                                                name="zipcode" pattern="[0-9]{5}" required />
+                                            <div class="invalid-feedback">กรุณากรอกรหัสไปรษณีย์ให้ครบ</div>
                                         </div>
                                         <div class="col-md-7 mb-4 pb-2">
                                             <label class="form-label" for="phone">เบอร์มือถือ</label>
                                             <input type="text" id="phone" class="form-control form-control-lg"
-                                                name="phone" required />
-                                            <div class="invalid-feedback">กรุณากรอกเบอร์มือถือ</div>
+                                                name="phone" pattern="[0-9]{10}" required />
+                                            <div class="invalid-feedback">กรุณากรอกเบอร์มือถือให้ครบ</div>
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary btn-lg" data-mdb-ripple-color="dark"
-                                        href="#">ลงทะเบียน</button>
+                                    <button type="submit" class="btn btn-primary btn-lg"
+                                        data-mdb-ripple-color="dark">ลงทะเบียน</button>
                                 </div>
                             </div>
                         </div>
@@ -178,6 +218,8 @@ require("dbconnect.php");
 
     <script src="assets/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.js"></script>
     <script>
+        // Validation for invalid input after submit
+
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (() => {
             'use strict'
@@ -198,6 +240,7 @@ require("dbconnect.php");
             })
         })()
 
+        // Validation password and confirmpassword form
         let password = document.getElementById("password")
             , confirm_password = document.getElementById("confirmpassword");
 
@@ -211,8 +254,76 @@ require("dbconnect.php");
 
         password.onchange = validatePassword;
         confirm_password.onkeyup = validatePassword;
-    </script>
 
+        // Preview images after upload
+        function previewImage(event) {
+            let input = event.target;
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('profile-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
+    function setDarkModeCookie(darkMode) {
+        document.cookie = "darkMode=" + darkMode;
+    }
+
+    // สร้างฟังก์ชันเพื่อดึงค่า Dark Mode จากคุกกี้ (หากมี)
+    function getDarkModeCookie() {
+        var name = "darkMode=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(name) == 0) {
+                return cookie.substring(name.length, cookie.length);
+            }
+        }
+        return null;
+    }
+
+    // สร้างฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้ (หากมี)
+    function updateDarkModeFromCookie() {
+        var darkMode = getDarkModeCookie();
+        if (darkMode === "true") {
+            $("#body").addClass("dark-mode");
+            $("#darkModeIcon").text("☀️");
+        } else {
+            $("#body").removeClass("dark-mode");
+            $("#darkModeIcon").text("🌙");
+        }
+    }
+
+    $(document).ready(function() {
+        // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
+        updateDarkModeFromCookie();
+
+        $("#darkModeButton").click(function() {
+            $("#body").toggleClass("dark-mode");
+
+            // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
+            var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
+            setDarkModeCookie(darkMode);
+
+            // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+            if (darkMode === "true") {
+                $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+            } else {
+                $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>

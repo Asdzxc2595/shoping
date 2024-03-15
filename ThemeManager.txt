@@ -1,0 +1,31 @@
+<?php
+require("dbconnect.php");
+
+class ThemeManager {
+    private $isDarkMode;
+
+    public function __construct() {
+        $this->isDarkMode = isset($_COOKIE['dark_mode']) ? $_COOKIE['dark_mode'] === 'true' : false;
+    }
+
+    public function setDarkMode($enabled) {
+        $this->isDarkMode = $enabled;
+        setcookie('dark_mode', $enabled ? 'true' : 'false', time() + (365 * 24 * 60 * 60), '/');
+    }
+
+    public function isDarkModeEnabled() {
+        return $this->isDarkMode;
+    }
+}
+
+$themeManager = new ThemeManager();
+
+if (isset($_GET['dark_mode'])) {
+    if ($_GET['dark_mode'] === 'on') {
+        $themeManager->setDarkMode(true);
+    } elseif ($_GET['dark_mode'] === 'off') {
+        $themeManager->setDarkMode(false);
+    }
+}
+
+?>

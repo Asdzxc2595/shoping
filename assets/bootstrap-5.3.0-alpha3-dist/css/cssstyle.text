@@ -1,0 +1,81 @@
+.card {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.footer-cta {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+}
+
+.price {
+    color: #263238;
+    font-size: 24px;
+}
+.carousel-item {
+    height: 50vh;
+}
+.card-title {
+    color: #263238
+}
+#darkModeButton {
+background-color: white; /* เปลี่ยนสีพื้นหลังเป็นขาว */
+color: black; /* เปลี่ยนสีตัวอักษรเป็นดำ */
+ }
+.sale {
+    color: #E53935
+}
+
+.sale-badge {
+    background-color: #E53935
+}
+
+/* เพิ่มเส้นสีดำรอบ Navbar */
+.navbar {
+    border: 10px solid black;
+}
+.carousel-item {
+height: 10vh;
+}
+.dark-mode {
+    background-color: #000;
+    color: #fff; 
+}
+<li class="nav-item mx-3">
+<button id="darkModeButton" class="btn btn-primary">
+     <span id="darkModeIcon">🌙</span> Dark Mode
+</button>
+</li>
+
+function updateDarkModeFromCookie() {
+    var darkMode = getDarkModeCookie();
+    if (darkMode === "true") {
+        $("#body").addClass("dark-mode");
+        $("#darkModeIcon").text("☀️");
+    } else {
+        $("#body").removeClass("dark-mode");
+        $("#darkModeIcon").text("🌙");
+    }
+}
+
+$(document).ready(function() {
+    // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
+    updateDarkModeFromCookie();
+
+    $("#darkModeButton").click(function() {
+        $("#body").toggleClass("dark-mode");
+
+        // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
+        var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
+        setDarkModeCookie(darkMode);
+
+        // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+        if (darkMode === "true") {
+            $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+        } else {
+            $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+        }
+    });
+});
+</script>
+</body>
+
+</html>
