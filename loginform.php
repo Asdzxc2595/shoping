@@ -27,13 +27,14 @@ require("dbconnect.php");
         .sale-badge {
             background-color: #E53935
         }.navbar {
-            border: 10px solid black;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
     .carousel-item {
         height: 10vh;
     }
     .dark-mode {
-    background-color: #000;
+    background-color: gray;
     color: #fff; 
 }
         

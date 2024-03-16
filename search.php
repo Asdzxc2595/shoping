@@ -43,7 +43,7 @@ require("dbconnect.php");
         #darkModeButton {
             background-color: white;
             /* เปลี่ยนสีพื้นหลังเป็นขาว */
-            color: gray;
+            color: black;
             /* เปลี่ยนสีตัวอักษรเป็นดำ */
         }
 
@@ -55,13 +55,18 @@ require("dbconnect.php");
             background-color: #E53935
         }
 
-        sel-item {
+        .navbar {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-item {
             height: 10vh;
         }
 
         .dark-mode {
             background-color: gray;
-            color: gray;
+            color: #fff;
         }
     </style>
 </head>

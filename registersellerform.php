@@ -16,27 +16,34 @@ require("dbconnect.php");
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>สมัครสมาชิก</title>
     <style>
-    #darkModeButton {
-        background-color: white; /* เปลี่ยนสีพื้นหลังเป็นขาว */
-        color: black; /* เปลี่ยนสีตัวอักษรเป็นดำ */
-         }
+        #darkModeButton {
+            background-color: white;
+            /* เปลี่ยนสีพื้นหลังเป็นขาว */
+            color: black;
+            /* เปลี่ยนสีตัวอักษรเป็นดำ */
+        }
+
         .sale {
             color: #E53935
         }
 
         .sale-badge {
             background-color: #E53935
-        }.navbar {
-            border: 10px solid black;
         }
-    .carousel-item {
-        height: 10vh;
-    }
-    .dark-mode {
-    background-color: #000;
-    color: #fff; 
-}
-        
+
+        .navbar {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-item {
+            height: 10vh;
+        }
+
+        .dark-mode {
+            background-color: gray;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -44,8 +51,7 @@ require("dbconnect.php");
     <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -82,9 +88,9 @@ require("dbconnect.php");
                     </li>
                     <li class="nav-item mx-3">
                         <button id="darkModeButton" class="btn btn-primary">
-                             <span id="darkModeIcon">🌙</span> Dark Mode
+                            <span id="darkModeIcon">🌙</span> Dark Mode
                         </button>
-                     </li>
+                    </li>
                 </ul>
                 <ul class="navbar-nav d-none d-lg-flex d-xl-flex">
                     <li class="nav-item mx-1">
@@ -105,8 +111,7 @@ require("dbconnect.php");
     <section style="margin-top: 1%;">
         <div class="container">
             <div class="fw-bold fs-4 text-center">สมัครสมาชิกเป็นเจ้าของร้านหนังสือ</div>
-            <form action="registerseller.php" method="POST" enctype="multipart/form-data" class="needs-validation"
-                novalidate>
+            <form action="registerseller.php" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                 <div class="row d-flex justify-content-center align-items-center">
                     <div class="col-12">
                         <div class="row g-0">
@@ -117,39 +122,33 @@ require("dbconnect.php");
 
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="email">อีเมล</label>
-                                        <input type="text" id="email" class="form-control form-control-lg" name="email"
-                                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
+                                        <input type="text" id="email" class="form-control form-control-lg" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
                                         <div class="invalid-feedback">กรุณากรอกอีเมล</div>
                                     </div>
 
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="password">รหัสผ่าน</label>
-                                        <input type="password" id="password" class="form-control form-control-lg"
-                                            name="password" pattern=".{4,}" required />
+                                        <input type="password" id="password" class="form-control form-control-lg" name="password" pattern=".{4,}" required />
                                         <div class="invalid-feedback">กรุณากรอกรหัสผ่าน</div>
                                     </div>
 
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="confirmpassword">ยืนยันรหัสผ่าน</label>
-                                        <input type="password" id="confirmpassword" class="form-control form-control-lg"
-                                            name="confirmpassword" pattern=".{4,}" required />
+                                        <input type="password" id="confirmpassword" class="form-control form-control-lg" name="confirmpassword" pattern=".{4,}" required />
                                         <div class="invalid-feedback">กรุณากรอกรหัสผ่านให้ตรงกัน</div>
                                     </div>
 
                                     <div class="mb-4 pb-2">
                                         <label for="formFile" class="form-label">อัปโหลดรูปโปรไฟล์ร้านหนังสือ</label>
-                                        <input class="form-control" type="file" id="formFile" name="image"
-                                            accept="image/jpeg, image/png" onchange="previewImage(event)" required>
+                                        <input class="form-control" type="file" id="formFile" name="image" accept="image/jpeg, image/png" onchange="previewImage(event)" required>
                                         <div class="invalid-feedback">กรุณาอัปโหลดรูปภาพ</div>
                                     </div>
 
-                                    <img id="profile-preview" src="#" class="border border-3" width="300"
-                                        height="300" />
+                                    <img id="profile-preview" src="#" class="border border-3" width="300" height="300" />
 
                                     <div class="my-4 pb-2">
                                         <label for="formFile" class="form-label">อัปโหลดรูป QR CODE บัญชีรายรับ</label>
-                                        <input class="form-control" type="file" id="formFile" name="stores_qr"
-                                            accept="image/jpeg, image/png" onchange="previewImage2(event)" required>
+                                        <input class="form-control" type="file" id="formFile" name="stores_qr" accept="image/jpeg, image/png" onchange="previewImage2(event)" required>
                                         <div class="invalid-feedback">กรุณาอัปโหลดQR CODE</div>
                                     </div>
 
@@ -164,57 +163,49 @@ require("dbconnect.php");
                                     <h3 class="fw-semibold mb-4 fs-5">ข้อมูลสถานที่ร้านหนังสือ</h3>
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="storename">ชื่อร้านหนังสือ</label>
-                                        <input type="text" id="storename" class="form-control form-control-lg"
-                                            name="storename" required />
+                                        <input type="text" id="storename" class="form-control form-control-lg" name="storename" required />
                                         <div class="invalid-feedback">กรุณากรอกชื่อร้านหนังสือ</div>
                                     </div>
 
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="facebook">Facebook</label>
-                                        <input type="text" id="facebook" class="form-control form-control-lg"
-                                            name="facebook" required />
+                                        <input type="text" id="facebook" class="form-control form-control-lg" name="facebook" required />
                                         <div class="invalid-feedback">กรุณากรอกชื่อ Facebook</div>
                                     </div>
 
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="line">Line</label>
-                                        <input type="text" id="line" class="form-control form-control-lg" name="line"
-                                            required />
+                                        <input type="text" id="line" class="form-control form-control-lg" name="line" required />
                                         <div class="invalid-feedback">กรุณากรอกชื่อ Line</div>
                                     </div>
 
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="address">ที่อยู่</label>
-                                        <textarea class="form-control" id="address" style="height: 100px" name="address"
-                                            required></textarea>
+                                        <textarea class="form-control" id="address" style="height: 100px" name="address" required></textarea>
                                         <div class="invalid-feedback">กรุณากรอกข้อมูลที่อยู่</div>
                                     </div>
 
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="province">จังหวัด</label>
-                                        <input type="text" id="province" class="form-control form-control-lg"
-                                            name="province" required />
+                                        <input type="text" id="province" class="form-control form-control-lg" name="province" required />
                                         <div class="invalid-feedback">กรุณากรอกจังหวัด</div>
                                     </div>
 
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="distict">เขต/อำเภอ</label>
-                                        <input type="text" id="distict" class="form-control form-control-lg"
-                                            name="district" required />
+                                        <input type="text" id="distict" class="form-control form-control-lg" name="district" required />
                                         <div class="invalid-feedback">กรุณากรอกเขต/อำเภอ</div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-md-5 mb-4 pb-2">
                                             <label class="form-label" for="zipcode">รหัสไปรษณีย์</label>
-                                            <input type="text" id="zipcode" class="form-control form-control-lg"
-                                                name="zipcode" pattern="[0-9]{5}" required />
+                                            <input type="text" id="zipcode" class="form-control form-control-lg" name="zipcode" pattern="[0-9]{5}" required />
                                             <div class="invalid-feedback">กรุณากรอกรหัสไปรษณีย์</div>
                                         </div>
                                         <div class="col-md-7 mb-4 pb-2">
                                             <label class="form-label" for="phone">เบอร์มือถือ</label>
-                                            <input type="text" id="phone" class="form-control form-control-lg"
-                                                name="phone" pattern="[0-9]{10}" required />
+                                            <input type="text" id="phone" class="form-control form-control-lg" name="phone" pattern="[0-9]{10}" required />
                                             <div class="invalid-feedback">กรุณากรอกเป็นตัวเลขและกรอกเบอร์มือถือให้ครบ
                                             </div>
                                         </div>
@@ -222,13 +213,11 @@ require("dbconnect.php");
 
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="map">พิกัดแผนที่หน้าร้าน</label>
-                                        <input type="text" id="map" class="form-control form-control-lg" name="map"
-                                            required />
+                                        <input type="text" id="map" class="form-control form-control-lg" name="map" required />
                                         <div class="invalid-feedback">กรุณาใส่พิกัดแผนที่หน้าร้าน</div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary btn-lg" data-mdb-ripple-color="dark"
-                                        href="#">ลงทะเบียน</button>
+                                    <button type="submit" class="btn btn-primary btn-lg" data-mdb-ripple-color="dark" href="#">ลงทะเบียน</button>
                                 </div>
                             </div>
                         </div>
@@ -263,8 +252,8 @@ require("dbconnect.php");
         })()
 
         // Validation password and confirmpassword form
-        let password = document.getElementById("password")
-            , confirm_password = document.getElementById("confirmpassword");
+        let password = document.getElementById("password"),
+            confirm_password = document.getElementById("confirmpassword");
 
         function validatePassword() {
             if (password.value != confirm_password.value) {
@@ -283,7 +272,7 @@ require("dbconnect.php");
             let input = event.target;
             if (input.files && input.files[0]) {
                 let reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     document.getElementById('profile-preview').src = e.target.result;
                 };
                 reader.readAsDataURL(input.files[0]);
@@ -294,7 +283,7 @@ require("dbconnect.php");
             let input = event.target;
             if (input.files && input.files[0]) {
                 let reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     document.getElementById('qr-preview').src = e.target.result;
                 };
                 reader.readAsDataURL(input.files[0]);
@@ -303,59 +292,59 @@ require("dbconnect.php");
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
-    function setDarkModeCookie(darkMode) {
-        document.cookie = "darkMode=" + darkMode;
-    }
-
-    // สร้างฟังก์ชันเพื่อดึงค่า Dark Mode จากคุกกี้ (หากมี)
-    function getDarkModeCookie() {
-        var name = "darkMode=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(name) == 0) {
-                return cookie.substring(name.length, cookie.length);
-            }
+        // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
+        function setDarkModeCookie(darkMode) {
+            document.cookie = "darkMode=" + darkMode;
         }
-        return null;
-    }
 
-    // สร้างฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้ (หากมี)
-    function updateDarkModeFromCookie() {
-        var darkMode = getDarkModeCookie();
-        if (darkMode === "true") {
-            $("#body").addClass("dark-mode");
-            $("#darkModeIcon").text("☀️");
-        } else {
-            $("#body").removeClass("dark-mode");
-            $("#darkModeIcon").text("🌙");
+        // สร้างฟังก์ชันเพื่อดึงค่า Dark Mode จากคุกกี้ (หากมี)
+        function getDarkModeCookie() {
+            var name = "darkMode=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieArray = decodedCookie.split(';');
+            for (var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i];
+                while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(name) == 0) {
+                    return cookie.substring(name.length, cookie.length);
+                }
+            }
+            return null;
         }
-    }
 
-    $(document).ready(function() {
-        // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
-        updateDarkModeFromCookie();
-
-        $("#darkModeButton").click(function() {
-            $("#body").toggleClass("dark-mode");
-
-            // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
-            var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
-            setDarkModeCookie(darkMode);
-
-            // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+        // สร้างฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้ (หากมี)
+        function updateDarkModeFromCookie() {
+            var darkMode = getDarkModeCookie();
             if (darkMode === "true") {
-                $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                $("#body").addClass("dark-mode");
+                $("#darkModeIcon").text("☀️");
             } else {
-                $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                $("#body").removeClass("dark-mode");
+                $("#darkModeIcon").text("🌙");
             }
+        }
+
+        $(document).ready(function() {
+            // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
+            updateDarkModeFromCookie();
+
+            $("#darkModeButton").click(function() {
+                $("#body").toggleClass("dark-mode");
+
+                // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
+                var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
+                setDarkModeCookie(darkMode);
+
+                // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+                if (darkMode === "true") {
+                    $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                } else {
+                    $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                }
+            });
         });
-    });
     </script>
 </body>
 

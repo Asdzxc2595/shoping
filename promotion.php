@@ -19,29 +19,34 @@ require("dbconnect.php");
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>ข่าวสารและโปรโมชั่น</title>
     <style>
-    #darkModeButton {
-        background-color: white; /* เปลี่ยนสีพื้นหลังเป็นขาว */
-        color: black; /* เปลี่ยนสีตัวอักษรเป็นดำ */
-         }
+        #darkModeButton {
+            background-color: white;
+            /* เปลี่ยนสีพื้นหลังเป็นขาว */
+            color: black;
+            /* เปลี่ยนสีตัวอักษรเป็นดำ */
+        }
+
         .sale {
-            border: 10px solid black;
+            color: #E53935
         }
 
         .sale-badge {
-            background-color: #000
-        }
-            .navbar {
-            border-radius: 10px
+            background-color: #E53935
         }
 
-    .carousel-item {
-        height: 10vh;
-    }
-    .dark-mode {
-    background-color: gray;
-    color: #fff; 
-}
-        
+        .navbar {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-item {
+            height: 10vh;
+        }
+
+        .dark-mode {
+            background-color: gray;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -49,8 +54,7 @@ require("dbconnect.php");
     <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -77,9 +81,9 @@ require("dbconnect.php");
                     </li>
                     <li class="nav-item mx-3">
                         <button id="darkModeButton" class="btn btn-primary">
-                             <span id="darkModeIcon">🌙</span> Dark Mode
+                            <span id="darkModeIcon">🌙</span> Dark Mode
                         </button>
-                     </li>
+                    </li>
                     <li class="nav-item mx-3 d-lg-none d-xl-none">
                         <a class="nav-link" href="#">
                             <h5 class="fw-semibold">ล็อคอิน</h5>
@@ -114,7 +118,7 @@ require("dbconnect.php");
             $sql = "SELECT * FROM newpro";
             $result = mysqli_query($connect, $sql);
             while ($row = $result->fetch_assoc()) {
-                ?>
+            ?>
                 <div class="row gx-5">
                     <div class="col-md-6 mb-4">
                         <div class="bg-image hover-overlay ripple shadow-2-strong rounded-5" data-mdb-ripple-color="light">
@@ -133,69 +137,69 @@ require("dbconnect.php");
                     </div>
                     <br>
                 </div>
-                <?php
+            <?php
             }
             ?>
         </div>
 
     </section>
 
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
-    function setDarkModeCookie(darkMode) {
-        document.cookie = "darkMode=" + darkMode;
-    }
-
-    // สร้างฟังก์ชันเพื่อดึงค่า Dark Mode จากคุกกี้ (หากมี)
-    function getDarkModeCookie() {
-        var name = "darkMode=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(name) == 0) {
-                return cookie.substring(name.length, cookie.length);
-            }
+        // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
+        function setDarkModeCookie(darkMode) {
+            document.cookie = "darkMode=" + darkMode;
         }
-        return null;
-    }
 
-    // สร้างฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้ (หากมี)
-    function updateDarkModeFromCookie() {
-        var darkMode = getDarkModeCookie();
-        if (darkMode === "true") {
-            $("#body").addClass("dark-mode");
-            $("#darkModeIcon").text("☀️");
-        } else {
-            $("#body").removeClass("dark-mode");
-            $("#darkModeIcon").text("🌙");
+        // สร้างฟังก์ชันเพื่อดึงค่า Dark Mode จากคุกกี้ (หากมี)
+        function getDarkModeCookie() {
+            var name = "darkMode=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieArray = decodedCookie.split(';');
+            for (var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i];
+                while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(name) == 0) {
+                    return cookie.substring(name.length, cookie.length);
+                }
+            }
+            return null;
         }
-    }
 
-    $(document).ready(function() {
-        // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
-        updateDarkModeFromCookie();
-
-        $("#darkModeButton").click(function() {
-            $("#body").toggleClass("dark-mode");
-
-            // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
-            var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
-            setDarkModeCookie(darkMode);
-
-            // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+        // สร้างฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้ (หากมี)
+        function updateDarkModeFromCookie() {
+            var darkMode = getDarkModeCookie();
             if (darkMode === "true") {
-                $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                $("#body").addClass("dark-mode");
+                $("#darkModeIcon").text("☀️");
             } else {
-                $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                $("#body").removeClass("dark-mode");
+                $("#darkModeIcon").text("🌙");
             }
+        }
+
+        $(document).ready(function() {
+            // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
+            updateDarkModeFromCookie();
+
+            $("#darkModeButton").click(function() {
+                $("#body").toggleClass("dark-mode");
+
+                // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
+                var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
+                setDarkModeCookie(darkMode);
+
+                // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+                if (darkMode === "true") {
+                    $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                } else {
+                    $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                }
+            });
         });
-    });
-</script>
+    </script>
 </body>
 
 </html>

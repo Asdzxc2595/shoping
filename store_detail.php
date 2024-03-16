@@ -64,7 +64,8 @@ $rs_b = $connect->query($sql_b);
         }
 
         .navbar {
-            border: 10px solid black;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .carousel-item {
