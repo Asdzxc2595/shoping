@@ -39,37 +39,43 @@ require("dbconnect.php");
         .card-title {
             color: #263238
         }
+
         #darkModeButton {
-        background-color: white; /* เปลี่ยนสีพื้นหลังเป็นขาว */
-        color: black; /* เปลี่ยนสีตัวอักษรเป็นดำ */
-         }
+            background-color: white;
+            /* เปลี่ยนสีพื้นหลังเป็นขาว */
+            color: gray;
+            /* เปลี่ยนสีตัวอักษรเป็นดำ */
+        }
+
         .sale {
             color: #E53935
         }
 
         .sale-badge {
             background-color: #E53935
-        }.navbar {
-            border: 10px solid black;
         }
-    .carousel-item {
-        height: 10vh;
-    }
-    .dark-mode {
-    background-color: gray;
-    color: #fff; 
-}
-        
+
+        .navbar {
+            border-radius: 10px
+        }
+
+        .carousel-item {
+            height: 10vh;
+        }
+
+        .dark-mode {
+            background-color: gray;
+            color: #fff;
+        }
     </style>
 </head>
 
 <body id="body">
 
-<nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
+    <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -99,11 +105,11 @@ require("dbconnect.php");
                             <h5 class="fw-semibold">ล็อคอิน</h5>
                         </a>
                     </li>
-                       <li class="nav-item mx-3">
-                     <button id="darkModeButton" class="btn btn-primary">
-                    <span id="darkModeIcon">🌙</span> Dark Mode
-                     </button>
-                </li>
+                    <li class="nav-item mx-3">
+                        <button id="darkModeButton" class="btn btn-primary">
+                            <span id="darkModeIcon">🌙</span> Dark Mode
+                        </button>
+                    </li>
                     <li class="nav-item mx-3 d-lg-none d-xl-none">
                         <a class="nav-link" href="register.php">
                             <h5 class="fw-semibold">สมัครสมาชิก</h5>
@@ -135,8 +141,7 @@ require("dbconnect.php");
     <section>
 
         <form method="GET" action="search.php" class="d-flex justify-content-center">
-            <button class="btn btn-secondary dropdown-toggle mx-2" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle mx-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 หมวดหนังสือ
             </button>
             <ul class="dropdown-menu">
@@ -157,8 +162,7 @@ require("dbconnect.php");
                 <li><a class="dropdown-item" href="type_search.php?type=14">ครอบครัว</a></li>
                 <li><a class="dropdown-item" href="type_search.php?type=15">บ้านและที่อยู่อาศัย</a></li>
             </ul>
-            <input type="text" name="query" class="form-control w-50 d-inline"
-                placeholder="ค้นหาข้อมูลตามชื่อหนังสือ...">
+            <input type="text" name="query" class="form-control w-50 d-inline" placeholder="ค้นหาข้อมูลตามชื่อหนังสือ...">
             <button type="submit" class='btn btn-primary ms-2'><i class='fa-solid fa-magnifying-glass'></i></button>
         </form>
 
@@ -166,15 +170,13 @@ require("dbconnect.php");
             <div class="row">
                 <?php
                 while ($row = $result->fetch_assoc()) {
-                    ?>
+                ?>
                     <div class="col-md-12 col-lg-2 mb-4 mb-lg-2">
 
                         <div class="card">
                             <a href="books_detail.php?book=<?php echo $row["book_id"]; ?>">
                                 <div class="text-center">
-                                    <img src="  <?php echo '../bookwhales' . $row["book_img"] ?>"
-                                        style="width:150px; height:220;" width="150" height="220"
-                                        class="card-img-top mt-1" />
+                                    <img src="  <?php echo '../bookwhales' . $row["book_img"] ?>" style="width:150px; height:220;" width="150" height="220" class="card-img-top mt-1" />
                                 </div>
                             </a>
                             <div class="card-body">
@@ -189,13 +191,12 @@ require("dbconnect.php");
                                     <h5 class="mb-0 fw-bold fs-6 text-danger"><span>
                                             <?php echo number_format($row["book_price"], 2) . " "; ?>บาท
                                         </span></h5>
-                                    <a href="loginform.php" class="btn btn-primary position-absolute"
-                                        style="right: 6%; bottom: 9%;"><i class="fa-solid fa-cart-shopping"></i></a>
+                                    <a href="loginform.php" class="btn btn-primary position-absolute" style="right: 6%; bottom: 9%;"><i class="fa-solid fa-cart-shopping"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
             </div>
@@ -203,62 +204,62 @@ require("dbconnect.php");
 
     </section>
 
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
-    function setDarkModeCookie(darkMode) {
-        document.cookie = "darkMode=" + darkMode;
-    }
-
-    // สร้างฟังก์ชันเพื่อดึงค่า Dark Mode จากคุกกี้ (หากมี)
-    function getDarkModeCookie() {
-        var name = "darkMode=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(name) == 0) {
-                return cookie.substring(name.length, cookie.length);
-            }
+        // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
+        function setDarkModeCookie(darkMode) {
+            document.cookie = "darkMode=" + darkMode;
         }
-        return null;
-    }
 
-    // สร้างฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้ (หากมี)
-    function updateDarkModeFromCookie() {
-        var darkMode = getDarkModeCookie();
-        if (darkMode === "true") {
-            $("#body").addClass("dark-mode");
-            $("#darkModeIcon").text("☀️");
-        } else {
-            $("#body").removeClass("dark-mode");
-            $("#darkModeIcon").text("🌙");
+        // สร้างฟังก์ชันเพื่อดึงค่า Dark Mode จากคุกกี้ (หากมี)
+        function getDarkModeCookie() {
+            var name = "darkMode=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieArray = decodedCookie.split(';');
+            for (var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i];
+                while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(name) == 0) {
+                    return cookie.substring(name.length, cookie.length);
+                }
+            }
+            return null;
         }
-    }
 
-    $(document).ready(function() {
-        // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
-        updateDarkModeFromCookie();
-
-        $("#darkModeButton").click(function() {
-            $("#body").toggleClass("dark-mode");
-
-            // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
-            var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
-            setDarkModeCookie(darkMode);
-
-            // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+        // สร้างฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้ (หากมี)
+        function updateDarkModeFromCookie() {
+            var darkMode = getDarkModeCookie();
             if (darkMode === "true") {
-                $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                $("#body").addClass("dark-mode");
+                $("#darkModeIcon").text("☀️");
             } else {
-                $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                $("#body").removeClass("dark-mode");
+                $("#darkModeIcon").text("🌙");
             }
+        }
+
+        $(document).ready(function() {
+            // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
+            updateDarkModeFromCookie();
+
+            $("#darkModeButton").click(function() {
+                $("#body").toggleClass("dark-mode");
+
+                // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
+                var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
+                setDarkModeCookie(darkMode);
+
+                // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+                if (darkMode === "true") {
+                    $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                } else {
+                    $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 
 

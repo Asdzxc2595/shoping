@@ -29,16 +29,17 @@ require("dbconnect.php");
 
         .sale-badge {
             background-color: #000
-        }.navbar {
-            border: 10px solid black;
         }
+            .navbar {
+            border-radius: 10px
+        }
+
     .carousel-item {
         height: 10vh;
     }
     .dark-mode {
-    background-color: #000;
+    background-color: gray;
     color: #fff; 
-    .newpro {border: 10px solid black;}
 }
         
     </style>

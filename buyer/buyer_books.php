@@ -37,6 +37,27 @@ $user = $_SESSION["user"];
     <link href="../assets/fontawesome/css/solid.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <title>หนังสือ</title>
+    <style>
+        #darkModeButton {
+            background-color: white;
+            /* เปลี่ยนสีพื้นหลังเป็นขาว */
+            color:gray;
+            /* เปลี่ยนสีตัวอักษรเป็นดำ */
+        }
+
+        .sale {
+            color: #E53935
+        }
+
+        .sale-badge {
+            background-color: #E53935
+        }
+
+        .dark-mode {
+            background-color: gray;
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
@@ -68,6 +89,11 @@ $user = $_SESSION["user"];
                         <a class="nav-link" href="promotion.php">
                             <h5 class="fw-semibold">ข่าวสารและโปรโมชั่น</h5>
                         </a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <button id="darkModeButton" class="btn btn-primary">
+                            <span id="darkModeIcon">🌙</span> Dark Mode
+                        </button>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="buyer_checkout.php">
@@ -238,7 +264,61 @@ $user = $_SESSION["user"];
     </section>
 
     <script src="../assets/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+    
+        // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
+        function setDarkModeCookie(darkMode) {
+            document.cookie = "darkMode=" + darkMode;
+        }
 
+        // สร้างฟังก์ชันเพื่อดึงค่า Dark Mode จากคุกกี้ (หากมี)
+        function getDarkModeCookie() {
+            var name = "darkMode=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieArray = decodedCookie.split(';');
+            for (var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i];
+                while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(name) == 0) {
+                    return cookie.substring(name.length, cookie.length);
+                }
+            }
+            return null;
+        }
+
+        // สร้างฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้ (หากมี)
+        function updateDarkModeFromCookie() {
+            var darkMode = getDarkModeCookie();
+            if (darkMode === "true") {
+                $("#body").addClass("dark-mode");
+                $("#darkModeIcon").text("☀️");
+            } else {
+                $("#body").removeClass("dark-mode");
+                $("#darkModeIcon").text("🌙");
+            }
+        }
+
+        $(document).ready(function() {
+            // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
+            updateDarkModeFromCookie();
+
+            $("#darkModeButton").click(function() {
+                $("#body").toggleClass("dark-mode");
+
+                // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
+                var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
+                setDarkModeCookie(darkMode);
+
+                // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+                if (darkMode === "true") {
+                    $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                } else {
+                    $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                }
+            });
+        });
+    </script>
 </body>
-
 </html>

@@ -72,7 +72,7 @@ $rs_b = $connect->query($sql_b);
         }
 
         .dark-mode {
-            background-color: #000;
+            background-color: gray;
             color: #fff;
         }
     </style>
@@ -141,7 +141,7 @@ $rs_b = $connect->query($sql_b);
 <section width="100%">
     <div class="profile" style="min-height:12rem;max-height:12rem;margin: 1% 25% 0 25%; ">
         <div class="row g-0 text-center position-relative">
-            <div class="col-6 col-md-4  " style="max-height:10rem;background-image: url('images/assortment-with-books-dark-background.jpg');max-width:40%;">
+            <div class="col-6 col-md-4  " style="max-height:0rem;background-image: url('images/assortment-with-books-dark-background.jpg');max-width:40%;">
             </div>
             <img class="mt-3 ms-3 position-absolute top-0 start-0 rounded-circle" src="<?php echo "../bookwhales" . $row['stores_img']; ?>" alt="" style="width:110px; height:110px;">
 
@@ -186,6 +186,7 @@ $rs_b = $connect->query($sql_b);
 
 
     <div class="text-center w-100 mt-1">
+        <br><br>
         <h5 class="mb-2 fw-semibold">พิกัดหน้าร้านหนังสือ</h5>
         <?php echo $row["stores_map"] ?>
     </div>
@@ -254,13 +255,15 @@ $rs_b = $connect->query($sql_b);
     }
 
     // สร้างฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้ (หากมี)
+    updateDarkModeFromCookie();
+
     function updateDarkModeFromCookie() {
         var darkMode = getDarkModeCookie();
         if (darkMode === "true") {
-            $("#body").addClass("dark-mode");
+            $("body").addClass("dark-mode");
             $("#darkModeIcon").text("☀️");
         } else {
-            $("#body").removeClass("dark-mode");
+            $("body").removeClass("dark-mode");
             $("#darkModeIcon").text("🌙");
         }
     }
@@ -285,6 +288,9 @@ $rs_b = $connect->query($sql_b);
         });
     });
 </script>
+
+
+
 </body>
 
 </html>

@@ -187,28 +187,35 @@ require("dbconnect.php");
         .pro-d-head {
             font-size: 18px;
             font-weight: 300;
-        } 
+        }
+
         #darkModeButton {
-        background-color: white; /* เปลี่ยนสีพื้นหลังเป็นขาว */
-        color: black; /* เปลี่ยนสีตัวอักษรเป็นดำ */
-         }
+            background-color: white;
+            /* เปลี่ยนสีพื้นหลังเป็นขาว */
+            color: black;
+            /* เปลี่ยนสีตัวอักษรเป็นดำ */
+        }
+
         .sale {
             color: #E53935
         }
 
         .sale-badge {
             background-color: #E53935
-        }.navbar {
-            border: 10px solid black;
         }
-    .carousel-item {
-        height: 10vh;
-    }
-    .dark-mode {
-    background-color: gray;
-    color: #fff; 
-}
-        
+
+        .navbar {
+            border-radius: 10px
+        }
+
+        .carousel-item {
+            height: 10vh;
+        }
+
+        .dark-mode {
+            background-color: gray;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -216,8 +223,7 @@ require("dbconnect.php");
     <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -252,12 +258,12 @@ require("dbconnect.php");
                             <h5 class="fw-semibold">สมัครสมาชิก</h5>
                         </a>
                     </li>
-                 
+
                     <li class="nav-item mx-3">
                         <button id="darkModeButton" class="btn btn-primary">
-                             <span id="darkModeIcon">🌙</span> Dark Mode
+                            <span id="darkModeIcon">🌙</span> Dark Mode
                         </button>
-                     </li>
+                    </li>
                 </ul>
                 <ul class="navbar-nav d-none d-lg-flex d-xl-flex">
                     <li class="nav-item mx-1">
@@ -282,19 +288,18 @@ require("dbconnect.php");
         $result = mysqli_query($connect, $sql);
 
         ?>
-        <div class="pro-title pro-title-color text-decoration-none">
+
         <div class="container mt-5">
             <div class="row product-list">
                 <?php
                 while ($row = $result->fetch_assoc()) {
 
-                    ?>
+                ?>
                     <div class="col-md-4">
                         <a href="store_detail.php?storeId=<?php echo $row['stores_id'] ?>">
                             <div class="panel">
                                 <div class="pro-img-box">
-                                    <img src="<?php echo "../bookwhales" . $row['stores_img'] ?>" width="150"
-                                        height="300" />
+                                    <img src="<?php echo "../bookwhales" . $row['stores_img'] ?>" width="150" height="300" />
                                     <div class="adtocart">
                                         <i class="fa-solid fa-store"></i>
                                     </div>
@@ -302,7 +307,7 @@ require("dbconnect.php");
 
                                 <div class="panel-body text-center">
                                     <h4 class="mb-4">
-                                        <div class="pro-title text-decoration-none">
+                                        <div class="pro-title text-decoration-none"><br>
                                             <?php echo $row['stores_name'] ?>
                                         </div>
                                     </h4>
@@ -311,63 +316,63 @@ require("dbconnect.php");
                         </a>
                     </div>
                 <?php } ?>
-            </div></div>
+            </div>
+        </div>
 
-      </section>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-
-    function setDarkModeCookie(darkMode) {
-        document.cookie = "darkMode=" + darkMode;
-    }
-
-    function getDarkModeCookie() {
-        var name = "darkMode=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
+        </section>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            function setDarkModeCookie(darkMode) {
+                document.cookie = "darkMode=" + darkMode;
             }
-            if (cookie.indexOf(name) == 0) {
-                return cookie.substring(name.length, cookie.length);
+
+            function getDarkModeCookie() {
+                var name = "darkMode=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var cookieArray = decodedCookie.split(';');
+                for (var i = 0; i < cookieArray.length; i++) {
+                    var cookie = cookieArray[i];
+                    while (cookie.charAt(0) == ' ') {
+                        cookie = cookie.substring(1);
+                    }
+                    if (cookie.indexOf(name) == 0) {
+                        return cookie.substring(name.length, cookie.length);
+                    }
+                }
+                return null;
             }
-        }
-        return null;
-    }
 
-    function updateDarkModeFromCookie() {
-        var darkMode = getDarkModeCookie();
-        if (darkMode === "true") {
-            $("#body").addClass("dark-mode");
-            $("#darkModeIcon").text("☀️");
-        } else {
-            $("#body").removeClass("dark-mode");
-            $("#darkModeIcon").text("🌙");
-        }
-    }
-
-    $(document).ready(function() {
-        // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
-        updateDarkModeFromCookie();
-
-        $("#darkModeButton").click(function() {
-            $("#body").toggleClass("dark-mode");
-
-            // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
-            var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
-            setDarkModeCookie(darkMode);
-
-            // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
-            if (darkMode === "true") {
-                $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
-            } else {
-                $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+            function updateDarkModeFromCookie() {
+                var darkMode = getDarkModeCookie();
+                if (darkMode === "true") {
+                    $("#body").addClass("dark-mode");
+                    $("#darkModeIcon").text("☀️");
+                } else {
+                    $("#body").removeClass("dark-mode");
+                    $("#darkModeIcon").text("🌙");
+                }
             }
-        });
-    });
-</script>
-</body>
+
+            $(document).ready(function() {
+                // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
+                updateDarkModeFromCookie();
+
+                $("#darkModeButton").click(function() {
+                    $("#body").toggleClass("dark-mode");
+
+                    // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
+                    var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
+                    setDarkModeCookie(darkMode);
+
+                    // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+                    if (darkMode === "true") {
+                        $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                    } else {
+                        $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                    }
+                });
+            });
+        </script>
+    </body>
 
 </html>

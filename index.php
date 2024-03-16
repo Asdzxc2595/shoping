@@ -1,53 +1,30 @@
 <?php
-session_start();
-
 require("dbconnect.php");
-
-// Check if the user session variable exists
-if (!isset($_SESSION['user'])) {
-    echo "<script>alert('กรุณาลงชื่อเข้าใช้เพื่อใช้งาน');
-  window.location.replace('../loginform.php');</script>";
-    exit(0);
-}
-
-$action = isset($_GET['a']) ? $_GET['a'] : "";
-$itemCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
-if (isset($_SESSION['qty'])) {
-    $meQty = 0;
-    foreach ($_SESSION['qty'] as $meItem) {
-        $meQty = (is_numeric($meQty) ? $meQty : 0) + (is_numeric($meItem) ? $meItem : 0);
-    }
-} else {
-    $meQty = 0;
-}
-
-$user = $_SESSION["user"];
 ?>
-
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../assets/bootstrap-5.3.0-alpha3-dist/css/bootstrap.css" rel="stylesheet">
-    <link href="../assets/fontawesome/css/fontawesome.css" rel="stylesheet">
-    <link href="../assets/fontawesome/css/brands.css" rel="stylesheet">
-    <link href="../assets/fontawesome/css/solid.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    <title>หนังสือ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.0">
+    <link href="assets/bootstrap-5.3.0-alpha3-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="assets/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="assets/fontawesome/css/solid.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Book Whales</title>
     <style>
         .carousel-item {
             height: 50vh;
         }
 
-        .card {
-            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        }
-
         .footer-cta {
             box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+        }
+
+        .h5-h {
+            font-size: 50px;
+            color:#263238
         }
 
         .price {
@@ -58,7 +35,10 @@ $user = $_SESSION["user"];
         .card-title {
             color: #263238
         }
-
+        #darkModeButton {
+        background-color: white; /* เปลี่ยนสีพื้นหลังเป็นขาว */
+        color: black; /* เปลี่ยนสีตัวอักษรเป็นดำ */
+         }
         .sale {
             color: #E53935
         }
@@ -66,11 +46,26 @@ $user = $_SESSION["user"];
         .sale-badge {
             background-color: #E53935
         }
+     
+        /* เพิ่มเส้นสีดำรอบ Navbar */
+    .navbar {
+            border-radius: 10px
+        }
+        
+    .carousel-item {
+        height: 10vh;
+    }
+    .dark-mode {
+    background-color: gray;
+    color: #fff; 
+}
     </style>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
+ <body id="body">
+    
+    <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3" >
+
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -80,17 +75,18 @@ $user = $_SESSION["user"];
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
                     <li class="nav-item mx-3">
-                        <a class="nav-link" href="buyer_index.php">
+                        <a class="nav-link" href="index.php">
                             <h5 class="fw-semibold">หน้าหลัก</h5>
                         </a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" href="buyer_books.php">
+                        <a class="nav-link" href="books.php">
                             <h5 class="fw-semibold">หนังสือ</h5>
                         </a>
                     </li>
+                  
                     <li class="nav-item mx-3">
-                        <a class="nav-link" href="buyer_store.php">
+                        <a class="nav-link" href="store.php">
                             <h5 class="fw-semibold">ร้านหนังสือ</h5>
                         </a>
                     </li>
@@ -100,78 +96,32 @@ $user = $_SESSION["user"];
                         </a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" href="buyer_checkout.php">
-                            <h5 class="fw-semibold">คำสั่งซื้อ</h5>
-                        </a>
-                    </li>
+                     <button id="darkModeButton" class="btn btn-primary">
+                    <span id="darkModeIcon">🌙</span> Dark Mode
+                     </button>
+                </li>
                     <li class="nav-item mx-3 d-lg-none d-xl-none">
-                        <a href="userprofile.php" class="nav-link">
-                            <h5 class="fw-semibold">จัดการบัญชี</h5>
+                        <a class="nav-link" href="#">
+                            <h5 class="fw-semibold">ล็อคอิน</h5>
                         </a>
-                    </li>
-                    <li class="nav-item mx-3 d-lg-none d-xl-none">
-                        <a href="usercart.php" class="nav-link">
-                            <h5 class="fw-semibold">ตะกร้าสินค้า</h5>
-                        </a>
-                    </li>
-                    <li class="nav-item mx-3 d-lg-none d-xl-none">
-                        <a href="wishlist.php" class="nav-link">
-                            <h5 class="fw-semibold">สินค้าที่ชอบ</h5>
-                        </a>
-                    </li>
-                    <li class="nav-item mx-3 d-lg-none d-xl-none">
-                        <a href="../logout.php" class="nav-link">
-                            <h5 class="fw-semibold">ออกจากระบบ</h5>
+                    </li><li class="nav-item mx-3 d-lg-none d-xl-none">
+                        <a class="nav-link" href="register.php">
+                            <h5 class="fw-semibold">สมัครสมาชิก</h5>
                         </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav d-none d-lg-flex d-xl-flex">
                     <li class="nav-item mx-1">
-
-                        <?php
-                        // Check if the logout form is submitted
-                        if (isset($_POST['logout'])) {
-                            session_destroy();
-                            echo "
-                            <script>
-                            alert('กำลังออกจากระบบ...');
-                            window.location.replace('../loginform.php');
-                            </script>
-                            ";
-                        }
-                        ?>
-
-                        <a href="userprofile.php" class="text-decoration-none">
-                            <button class="btn btn-lg">
-                                <i class="fa-solid fa-user"></i>
-                            </button>
+                        <a class="nav-link" href="loginform.php">
+                            <h5 class="fw-semibold">ลงชื่อเข้าใช้ระบบ</h5>
+                            
                         </a>
-                        <a href="buyer_cart.php" class="text-decoration-none">
-                            <button class="btn btn-lg position-relative">
-                                <i class="fa-solid fa-cart-shopping"></i><span
-                                    class="badge text-dark position-absolute">
-                                    <?php echo $meQty; ?>
-                                </span>
-                            </button>
-                        </a>
-                        <a href="wishlist.php" class="text-decoration-none">
-                            <button class="btn btn-lg">
-                                <i class="fa-solid fa-heart"></i><span class="badge text-dark position-absolute mt-3">
-                                    <?php
-                                    $sql = "SELECT *, COUNT(*) AS wishlistitem FROM books INNER JOIN wishlist ON wishlist.book_id=books.book_id WHERE users_id = '$user'";
-                                    $result = mysqli_query($connect, $sql);
-                                    $row = $result->fetch_assoc();
-                                    echo $row["wishlistitem"];
-                                    ?>
-                                </span>
-                            </button>
-                        </a>
-                        <form method="post" class="d-inline">
-                            <button type="submit" name="logout" class="btn btn-lg">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                            </button>
-                        </form>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link border rounded bg-warning px-3 ms-2 text-white" href="register.php">
+                            <h5 class="fw-semibold">สมัครสมาชิก</h5>
+                        </a>
+                    </li> </style>
                 </ul>
             </div>
         </div>
@@ -182,12 +132,27 @@ $user = $_SESSION["user"];
         <div id="carouselExample" class="carousel slide">
             <div class="carousel-inner">
                 <div class="carousel-item active overflow-hidden" style="height: 444px;">
-                    <img src="../images/high-angle-open-books-teacup.jpg" class="d-block">
+                    <img src="images/high-angle-open-books-teacup.jpg" class="d-block">
+                    <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)"></div>
+                    <div class="carousel-caption d-none d-md-block mb-5">
+                        <h1 class="mb-1">
+                            <img src="favicon.ico"> Book Whales
+                                <img src="favicon.ico">
+                        </h1>
+
+                        <p><h1 class="mb-4">
+                            เว็บไซต์รวบรวมร้านหนังสือ
+</h1>
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item overflow-hidden" style="height: 444px;">
+                    <img src="images/kids-being-part-sunday-school.jpg" class="d-block">
                     <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)"></div>
                     <div class="carousel-caption d-none d-md-block mb-5">
                         <h1 class="mb-4">
-                            <strong class="text-white bg-black p-2 px-3 rounded"><img src="../favicon.ico"> Book Whales
-                                <img src="../favicon.ico"></strong>
+                            <strong class="text-white bg-black p-2 px-3 rounded"><img src="favicon.ico"> Book Whales
+                                <img src="favicon.ico"></strong>
                         </h1>
 
                         <p>
@@ -196,26 +161,12 @@ $user = $_SESSION["user"];
                     </div>
                 </div>
                 <div class="carousel-item overflow-hidden" style="height: 444px;">
-                    <img src="../images/kids-being-part-sunday-school.jpg" class="d-block">
+                    <img src="images/authentic-book-club-scene.jpg" class="d-block">
                     <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)"></div>
                     <div class="carousel-caption d-none d-md-block mb-5">
                         <h1 class="mb-4">
-                            <strong class="text-white bg-black p-2 px-3 rounded"><img src="../favicon.ico"> Book Whales
-                                <img src="../favicon.ico"></strong>
-                        </h1>
-
-                        <p>
-                            <strong class="text-white bg-black p-2 px-3 rounded">เว็บไซต์รวบรวมร้านหนังสือ</strong>
-                        </p>
-                    </div>
-                </div>
-                <div class="carousel-item overflow-hidden" style="height: 444px;">
-                    <img src="../images/authentic-book-club-scene.jpg" class="d-block">
-                    <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)"></div>
-                    <div class="carousel-caption d-none d-md-block mb-5">
-                        <h1 class="mb-4">
-                            <strong class="text-white bg-black p-2 px-3 rounded"><img src="../favicon.ico"> Book Whales
-                                <img src="../favicon.ico"></strong>
+                            <strong class="text-white bg-black p-2 px-3 rounded"><img src="favicon.ico"> Book Whales
+                                <img src="favicon.ico"></strong>
                         </h1>
 
                         <p>
@@ -248,7 +199,7 @@ $user = $_SESSION["user"];
                                 <div class="row">
                                     <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
                                         <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                            <img src="<?php echo $row["book_img"]; ?>" class="w-100" />
+                                            <img src="<?php echo '../bookwhales' . $row["book_img"]; ?>" class="w-100" />
                                             <a href="#!">
                                                 <div class="hover-overlay">
                                                     <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);">
@@ -287,13 +238,13 @@ $user = $_SESSION["user"];
                                         </h6>
 
                                         <div class="d-flex flex-column mt-4">
-                                            <a href="buyer_books_detail.php?book=<?php echo $row["book_id"] ?>">
+                                            <a href="books_detail.php?book=<?php echo $row["book_id"] ?>">
                                                 <button class="btn btn-primary btn-sm w-100"
                                                     type="button">รายละเอียดสินค้า</button>
                                             </a>
-                                            <a href="buyer_updatecart.php?itemId=<?php echo $row["book_id"]; ?>">
+                                            <a href="loginform.php">
                                                 <button class="btn btn-outline-primary btn-sm mt-2 w-100" type="button">
-                                                    เลือกสินค้าลงตะกร้า
+                                                    ลงชื่อเข้าใช้ระบบ
                                                 </button>
                                             </a>
                                         </div>
@@ -323,7 +274,7 @@ $user = $_SESSION["user"];
                                 <div class="row">
                                     <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
                                         <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                            <img src="<?php echo $row["book_img"]; ?>" class="w-100" />
+                                            <img src="<?php echo '../bookwhales' . $row["book_img"]; ?>" class="w-100" />
                                             <a href="#!">
                                                 <div class="hover-overlay">
                                                     <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);">
@@ -362,7 +313,7 @@ $user = $_SESSION["user"];
                                         </h6>
 
                                         <div class="d-flex flex-column mt-4">
-                                            <a href="buyer_books_detail.php?book=<?php echo $row["book_id"] ?>">
+                                            <a href="books_detail.php?book=<?php echo $row["book_id"] ?>">
                                                 <button class="btn btn-primary btn-sm w-100"
                                                     type="button">รายละเอียดสินค้า</button>
                                             </a>
@@ -384,8 +335,63 @@ $user = $_SESSION["user"];
         </div>
 
     </section>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
 
-    <script src="assets/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.js"></script>
+    function setDarkModeCookie(darkMode) {
+        document.cookie = "darkMode=" + darkMode;
+    }
+
+    function getDarkModeCookie() {
+        var name = "darkMode=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(name) == 0) {
+                return cookie.substring(name.length, cookie.length);
+            }
+        }
+        return null;
+    }
+
+    function updateDarkModeFromCookie() {
+        var darkMode = getDarkModeCookie();
+        if (darkMode === "true") {
+            $("#body").addClass("dark-mode");
+            $("#darkModeIcon").text("☀️");
+        } else {
+            $("#body").removeClass("dark-mode");
+            $("#darkModeIcon").text("🌙");
+        }
+    }
+
+    $(document).ready(function() {
+        // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
+        updateDarkModeFromCookie();
+
+        $("#darkModeButton").click(function() {
+            $("#body").toggleClass("dark-mode");
+
+            // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
+            var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
+            setDarkModeCookie(darkMode);
+
+            // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+            if (darkMode === "true") {
+                $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+            } else {
+                $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+            }
+        });
+    });
+</script>
+
+
+
 
 </body>
 
