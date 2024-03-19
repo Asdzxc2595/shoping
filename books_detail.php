@@ -35,50 +35,52 @@ $row = ($result->fetch_assoc());
     <link href="assets/fontawesome/css/fontawesome.css" rel="stylesheet">
     <link href="assets/fontawesome/css/brands.css" rel="stylesheet">
     <link href="assets/fontawesome/css/solid.css" rel="stylesheet">
+
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>
         <?php echo $row['book_name']; ?>
     </title>
     <style>
-        .card {
-            margin-bottom: 30px;
+        .navbar {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: bottom 0.3s ease;
         }
 
-        .card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            word-wrap: break-word;
-            background-color: #fff;
-            background-clip: border-box;
-            border: 0 solid transparent;
-            border-radius: 0;
+        #darkModeButton {
+            background-color: white;
+            /* เปลี่ยนสีพื้นหลังเป็นขาว */
+            color: black;
+            /* เปลี่ยนสีตัวอักษรเป็นดำ */
         }
 
-        .card .card-subtitle {
-            font-weight: 300;
-            margin-bottom: 10px;
-            color: #8898aa;
+        .sale {
+            color: #E53935
         }
 
-        .table-product.table-striped tbody tr:nth-of-type(odd) {
-            background-color: #f3f8fa !important
+        .sale-badge {
+            background-color: #E53935
         }
 
-        .table-product td {
-            border-top: 0px solid #dee2e6 !important;
-            color: #000 !important;
+        .carousel-item {
+            height: 10vh;
+        }
+
+        .dark-mode {
+            background-color: gray;
+            color: #fff;
         }
     </style>
 </head>
 
-<body>
+<body id="body">
     <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -102,6 +104,11 @@ $row = ($result->fetch_assoc());
                         <a class="nav-link" href="promotion.php">
                             <h5 class="fw-semibold">ข่าวสารและโปรโมชั่น</h5>
                         </a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <button id="darkModeButton" class="btn btn-primary">
+                            <span id="darkModeIcon">🌙</span> Dark Mode
+                        </button>
                     </li>
                     <li class="nav-item mx-3 d-lg-none d-xl-none">
                         <a class="nav-link" href="#">
@@ -142,9 +149,7 @@ $row = ($result->fetch_assoc());
                 </h6>
                 <div class="row">
                     <div class="col-lg-5 col-md-5 col-sm-6">
-                        <div class="white-box text-center mt-4"><img
-                                src="<?php echo "../bookwhales" . $row['book_img'] ?>" class="img-responsive"
-                                width="430" height="600">
+                        <div class="white-box text-center mt-4"><img src="<?php echo "../bookwhales" . $row['book_img'] ?>" class="img-responsive" width="430" height="600">
                         </div>
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-6">
@@ -167,8 +172,8 @@ $row = ($result->fetch_assoc());
                         <div class="table-responsive">
                             <table class="table table-striped table-product">
                                 <tbody>
-                                    <tr>
-                                        <td width="390">ผู้เขียน</td>
+                                    <tr><h4>
+                                        <td width="390">ผู้เขียน</td></h4>
                                         <td>
                                             <?php echo $row['book_author'] ?>
                                         </td>
@@ -225,6 +230,64 @@ $row = ($result->fetch_assoc());
     ?>
 
     <script src="assets/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
+        function setDarkModeCookie(darkMode) {
+            document.cookie = "darkMode=" + darkMode;
+        }
+
+        // สร้างฟังก์ชันเพื่อดึงค่า Dark Mode จากคุกกี้ (หากมี)
+        function getDarkModeCookie() {
+            var name = "darkMode=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieArray = decodedCookie.split(';');
+            for (var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i];
+                while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(name) == 0) {
+                    return cookie.substring(name.length, cookie.length);
+                }
+            }
+            return null;
+        }
+
+        // สร้างฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้ (หากมี)
+        function updateDarkModeFromCookie() {
+            var darkMode = getDarkModeCookie();
+            if (darkMode === "true") {
+                $("#body").addClass("dark-mode");
+                $("#darkModeIcon").text("☀️");
+            } else {
+                $("#body").removeClass("dark-mode");
+                $("#darkModeIcon").text("🌙");
+            }
+        }
+
+        $(document).ready(function() {
+            // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
+            updateDarkModeFromCookie();
+
+            $("#darkModeButton").click(function() {
+                $("#body").toggleClass("dark-mode");
+
+                // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
+                var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
+                setDarkModeCookie(darkMode);
+
+                // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+                if (darkMode === "true") {
+                    $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                } else {
+                    $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                }
+            });
+        });
+    </script>
+
+
 
 </body>
 

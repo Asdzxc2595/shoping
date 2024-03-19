@@ -33,7 +33,7 @@ if (isset($_SESSION['cart']) and $itemCount > 0) {
     $meCount = 0;
 }
 
-    
+
 
 ?>
 <!DOCTYPE html>
@@ -49,15 +49,48 @@ if (isset($_SESSION['cart']) and $itemCount > 0) {
     <link href="../assets/fontawesome/css/solid.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <title>คำสั่งซื้อ</title>
+    <style>
+        .navbar {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: bottom 0.3s ease;
+        }
+
+        #darkModeButton {
+            background-color: white;
+            /* เปลี่ยนสีพื้นหลังเป็นขาว */
+            color: black;
+            /* เปลี่ยนสีตัวอักษรเป็นดำ */
+        }
+
+        .sale {
+            color: #E53935
+        }
+
+        .sale-badge {
+            background-color: #E53935
+        }
+
+        .carousel-item {
+            height: 10vh;
+        }
+
+        .dark-mode {
+            background-color: gray;
+            color: #fff;
+        }
+    </style>
 </head>
 
-<body>
-    <div class="container">
+<body id="body">
+
         <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
             <div class="container-fluid">
                 <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -86,6 +119,11 @@ if (isset($_SESSION['cart']) and $itemCount > 0) {
                             <a class="nav-link" href="buyer_checkout.php">
                                 <h5 class="fw-semibold">คำสั่งซื้อ</h5>
                             </a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <button id="darkModeButton" class="btn btn-primary">
+                                <span id="darkModeIcon">🌙</span> Dark Mode
+                            </button>
                         </li>
                         <li class="nav-item mx-3 d-lg-none d-xl-none">
                             <a href="userprofile.php" class="nav-link">
@@ -131,16 +169,14 @@ if (isset($_SESSION['cart']) and $itemCount > 0) {
                             </a>
                             <a href="buyer_cart.php" class="text-decoration-none">
                                 <button class="btn btn-lg position-relative">
-                                    <i class="fa-solid fa-cart-shopping"></i><span
-                                        class="badge text-dark position-absolute">
+                                    <i class="fa-solid fa-cart-shopping"></i><span class="badge text-dark position-absolute">
                                         <?php echo $meQty; ?>
                                     </span>
                                 </button>
                             </a>
                             <a href="wishlist.php" class="text-decoration-none">
                                 <button class="btn btn-lg">
-                                    <i class="fa-solid fa-heart"></i><span
-                                        class="badge text-dark position-absolute mt-3">
+                                    <i class="fa-solid fa-heart"></i><span class="badge text-dark position-absolute mt-3">
                                         <?php
                                         $sql = "SELECT *, COUNT(*) AS wishlistitem FROM books INNER JOIN wishlist ON wishlist.book_id=books.book_id WHERE users_id = '$user'";
                                         $result = mysqli_query($connect, $sql);
@@ -160,6 +196,7 @@ if (isset($_SESSION['cart']) and $itemCount > 0) {
                 </div>
             </div>
         </nav>
+        <div class="container">
         <?php
 
         $checkout = $_GET["id"];
@@ -178,7 +215,7 @@ if (isset($_SESSION['cart']) and $itemCount > 0) {
         if ($rs->num_rows > 0) {
             echo "<div class='container-fluid d-flex flex-column align-items-center table-responsive mt-5'>";
             echo "<div class='align-self-start fw-semibold mb-1'>รายการหนังสือ</div>";
-            echo "<table class='table table-bordered table-fluid'>";
+            echo "<table class='table table-bordered table-fluid table-light'>";
             echo "<thead class='text-center'>";
             echo "<tr>
                         <th scope='col'>ชื่อร้านค้า</th>
@@ -220,11 +257,11 @@ if (isset($_SESSION['cart']) and $itemCount > 0) {
         $rs = mysqli_query($connect, $sql);
 
         if ($rs->num_rows > 0) {
-        
+
 
             echo "<div class='container-fluid d-flex flex-column align-content-center table-responsive mt-5'>";
             echo "<div class='align-self-start fw-semibold mb-1'>รายการที่ต้องชำระ</div>";
-            echo "<table class='table table-bordered table-fluid'>";
+            echo "<table class='table table-bordered table-fluid table-light'>";
             echo "<thead class='text-center'>";
             echo "<tr>
                         <th scope='col'>ชื่อร้านค้า</th>
@@ -265,9 +302,8 @@ if (isset($_SESSION['cart']) and $itemCount > 0) {
                 $rsd = $de->fetch_object();
 
                 if ($s == 0) {
-                    ?>
-                    <form action='buyer_slip.php?orders_id=<?php echo $r->orders_id ?>&stores_id=<?php echo $r->stores_id ?>'
-                        method='POST' enctype='multipart/form-data'>
+        ?>
+                    <form action='buyer_slip.php?orders_id=<?php echo $r->orders_id ?>&stores_id=<?php echo $r->stores_id ?>' method='POST' enctype='multipart/form-data'>
                         <input class='form-control' type='file' id='formFile' name='detail_slip' multiple required>
                         <div class="text-center mt-2"><button type='submit' class="btn btn-primary">ยืนยันการชำระ</button></div>
                     </form>
@@ -275,7 +311,7 @@ if (isset($_SESSION['cart']) and $itemCount > 0) {
 
                 <?php } else { ?>
                     <div class="text-center"><img width="150" height="200" src="<?php echo $r->detail_slip ?>" alt=""></div>
-                <?php }
+        <?php }
                 "</td>";
                 echo "</tr>";
             }
@@ -284,7 +320,7 @@ if (isset($_SESSION['cart']) and $itemCount > 0) {
             echo "</table>";
             echo "</div>";
             echo "<div class='container-fluid d-flex justify-content-end'>";
-           
+
 
             echo "</div>";
             echo "";
@@ -295,8 +331,64 @@ if (isset($_SESSION['cart']) and $itemCount > 0) {
         ?>
 
         <script src="../assets/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.js"></script>
-        
 
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
+            function setDarkModeCookie(darkMode) {
+                document.cookie = "darkMode=" + darkMode;
+            }
+
+            // สร้างฟังก์ชันเพื่อดึงค่า Dark Mode จากคุกกี้ (หากมี)
+            function getDarkModeCookie() {
+                var name = "darkMode=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var cookieArray = decodedCookie.split(';');
+                for (var i = 0; i < cookieArray.length; i++) {
+                    var cookie = cookieArray[i];
+                    while (cookie.charAt(0) == ' ') {
+                        cookie = cookie.substring(1);
+                    }
+                    if (cookie.indexOf(name) == 0) {
+                        return cookie.substring(name.length, cookie.length);
+                    }
+                }
+                return null;
+            }
+
+            // สร้างฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้ (หากมี)
+            function updateDarkModeFromCookie() {
+                var darkMode = getDarkModeCookie();
+                if (darkMode === "true") {
+                    $("#body").addClass("dark-mode");
+                    $("#darkModeIcon").text("☀️");
+                } else {
+                    $("#body").removeClass("dark-mode");
+                    $("#darkModeIcon").text("🌙");
+                }
+            }
+
+            $(document).ready(function() {
+                // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
+                updateDarkModeFromCookie();
+
+                $("#darkModeButton").click(function() {
+                    $("#body").toggleClass("dark-mode");
+
+                    // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
+                    var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
+                    setDarkModeCookie(darkMode);
+
+                    // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+                    if (darkMode === "true") {
+                        $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                    } else {
+                        $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                    }
+                });
+            });
+        </script>
 </body>
 
 </html>

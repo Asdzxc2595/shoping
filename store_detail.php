@@ -48,6 +48,15 @@ $rs_b = $connect->query($sql_b);
             color: #263238
         }
 
+        .navbar {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: bottom 0.3s ease;
+        }
+
         #darkModeButton {
             background-color: white;
             /* เปลี่ยนสีพื้นหลังเป็นขาว */
@@ -63,11 +72,6 @@ $rs_b = $connect->query($sql_b);
             background-color: #E53935
         }
 
-        .navbar {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
         .carousel-item {
             height: 10vh;
         }
@@ -79,67 +83,69 @@ $rs_b = $connect->query($sql_b);
     </style>
 </head>
 
-<nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
-                <li class="nav-item mx-3">
-                    <a class="nav-link" href="index.php">
-                        <h5 class="fw-semibold">หน้าหลัก</h5>
-                    </a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link" href="books.php">
-                        <h5 class="fw-semibold">หนังสือ</h5>
-                    </a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link" href="store.php">
-                        <h5 class="fw-semibold">ร้านหนังสือ</h5>
-                    </a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link" href="promotion.php">
-                        <h5 class="fw-semibold">ข่าวสารและโปรโมชั่น</h5>
-                    </a>
-                </li>
-                <li class="nav-item mx-3">
-                    <button id="darkModeButton" class="btn btn-primary">
-                        <span id="darkModeIcon">🌙</span> Dark Mode
-                    </button>
-                </li>
-                <li class="nav-item mx-3 d-lg-none d-xl-none">
-                    <a class="nav-link" href="#">
-                        <h5 class="fw-semibold">ล็อคอิน</h5>
-                    </a>
-                </li>
-                <li class="nav-item mx-3 d-lg-none d-xl-none">
-                    <a class="nav-link" href="register.php">
-                        <h5 class="fw-semibold">สมัครสมาชิก</h5>
-                    </a>
-                </li>
-            </ul>
-            <ul class="navbar-nav d-none d-lg-flex d-xl-flex">
-                <li class="nav-item mx-1">
-                    <a class="nav-link" href="loginform.php">
-                        <h5 class="fw-semibold">ลงชื่อเข้าใช้ระบบ</h5>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link border rounded bg-warning px-3 ms-2 text-white" href="register.php">
-                        <h5 class="fw-semibold">สมัครสมาชิก</h5>
-                    </a>
-                </li>
-            </ul>
+<body id="body">
+    <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="index.php">
+                            <h5 class="fw-semibold">หน้าหลัก</h5>
+                        </a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="books.php">
+                            <h5 class="fw-semibold">หนังสือ</h5>
+                        </a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="store.php">
+                            <h5 class="fw-semibold">ร้านหนังสือ</h5>
+                        </a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="promotion.php">
+                            <h5 class="fw-semibold">ข่าวสารและโปรโมชั่น</h5>
+                        </a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <button id="darkModeButton" class="btn btn-primary">
+                            <span id="darkModeIcon">🌙</span> Dark Mode
+                        </button>
+                    </li>
+                    <li class="nav-item mx-3 d-lg-none d-xl-none">
+                        <a class="nav-link" href="#">
+                            <h5 class="fw-semibold">ล็อคอิน</h5>
+                        </a>
+                    </li>
+                    <li class="nav-item mx-3 d-lg-none d-xl-none">
+                        <a class="nav-link" href="register.php">
+                            <h5 class="fw-semibold">สมัครสมาชิก</h5>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav d-none d-lg-flex d-xl-flex">
+                    <li class="nav-item mx-1">
+                        <a class="nav-link" href="loginform.php">
+                            <h5 class="fw-semibold">ลงชื่อเข้าใช้ระบบ</h5>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link border rounded bg-warning px-3 ms-2 text-white" href="register.php">
+                            <h5 class="fw-semibold">สมัครสมาชิก</h5>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-
+    </nav>
+</body>
 <section width="100%">
+
     <div class="profile" style="min-height:12rem;max-height:12rem;margin: 1% 25% 0 25%; ">
         <div class="row g-0 text-center position-relative">
             <div class="col-6 col-md-4  " style="max-height:0rem;background-image: url('images/assortment-with-books-dark-background.jpg');max-width:40%;">

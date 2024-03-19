@@ -22,6 +22,7 @@ $store = $_SESSION['store'];
     <link href="../assets/fontawesome/css/brands.css" rel="stylesheet">
     <link href="../assets/fontawesome/css/solid.css" rel="stylesheet">
     <title>จัดการร้านหนังสือ</title>
+    
 </head>
 
 <body>

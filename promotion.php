@@ -37,6 +37,10 @@ require("dbconnect.php");
         .navbar {
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: bottom 0.3s ease;
         }
 
         .carousel-item {
@@ -80,7 +84,7 @@ require("dbconnect.php");
                         </a>
                     </li>
                     <li class="nav-item mx-3">
-                        <button id="darkModeButton" class="btn btn-primary">
+                        <button id="darkModeButton" onclick="updateDarkModeFromCookie()" class="btn btn-primary">
                             <span id="darkModeIcon">🌙</span> Dark Mode
                         </button>
                     </li>
@@ -145,6 +149,79 @@ require("dbconnect.php");
     </section>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script>
+        // const btnStyle = () => {
+        //     const a = document.querySelector('#darkModeButton').addEventListener('click', () => {
+        //         const bodyStyle = document.querySelector('#body');
+        //         bodyStyle.style.backgroundColor = 'black'; // สีที่ต้องการให้ body เปลี่ยนเป็นอะไรก็ใส่ตรงนี้
+        //         bodyStyle.style.color = '#fff'; // สีที่ต้องการให้ body เปลี่ยนเป็นอะไรก็ใส่ตรงนี้
+        //     });
+        // };
+        var b = document.querySelector('#darkModeButton')
+        var bodyStyle = document.querySelector('#body');
+
+        // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
+        function setDarkModeCookie(darkMode) {
+            document.cookie = "darkMode=" + darkMode;
+        }
+
+        // สร้างฟังก์ชันเพื่อดึงค่า Dark Mode จากคุกกี้ (หากมี)
+        function getDarkModeCookie() {
+            var name = "darkMode=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieArray = decodedCookie.split(';');
+            for (var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i];
+                while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(name) == 0) {
+                    return cookie.substring(name.length, cookie.length);
+                }
+            }
+            return null;
+        }
+
+        // สร้างฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้ (หากมี)
+        function updateDarkModeFromCookie() {
+            var darkMode = getDarkModeCookie();
+            if (darkMode === "true") {
+                $("#body").addClass("dark-mode");
+                $("#darkModeIcon").text("☀️");
+                bodyStyle.style.backgroundColor = '#fff'; // สีที่ต้องการให้ body เปลี่ยนเป็นอะไรก็ใส่ตรงนี้
+                bodyStyle.style.color = 'black'; // สีที่ต้องการให้ body เปลี่ยนเป็นอะไรก็ใส่ตรงนี้
+            } else {
+                $("#body").removeClass("dark-mode");
+                $("#darkModeIcon").text("🌙");
+                bodyStyle.style.backgroundColor = 'black'; // สีที่ต้องการให้ body เปลี่ยนเป็นอะไรก็ใส่ตรงนี้
+                bodyStyle.style.color = '#fff'; // สีที่ต้องการให้ body เปลี่ยนเป็นอะไรก็ใส่ตรงนี้
+            }
+        }
+
+        $(document).ready(function() {
+            // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
+            updateDarkModeFromCookie();
+
+            $("#darkModeButton").click(function() {
+                $("#body").toggleClass("dark-mode");
+
+                // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
+                var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
+                setDarkModeCookie(darkMode);
+
+                // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+                if (darkMode === "true") {
+                    $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                } else {
+                    $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                }
+            });
+        });
+    </script>
+</body>
+
+</html> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
         function setDarkModeCookie(darkMode) {
@@ -200,6 +277,9 @@ require("dbconnect.php");
             });
         });
     </script>
+
+
+
 </body>
 
 </html>

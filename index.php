@@ -3,6 +3,7 @@ require("dbconnect.php");
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +25,7 @@ require("dbconnect.php");
 
         .h5-h {
             font-size: 50px;
-            color:#263238
+            color: #263238
         }
 
         .price {
@@ -35,10 +36,23 @@ require("dbconnect.php");
         .card-title {
             color: #263238
         }
+
+        .navbar {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: bottom 0.3s ease;
+        }
+
         #darkModeButton {
-        background-color: white; /* เปลี่ยนสีพื้นหลังเป็นขาว */
-        color: black; /* เปลี่ยนสีตัวอักษรเป็นดำ */
-         }
+            background-color: white;
+            /* เปลี่ยนสีพื้นหลังเป็นขาว */
+            color: black;
+            /* เปลี่ยนสีตัวอักษรเป็นดำ */
+        }
+
         .sale {
             color: #E53935
         }
@@ -46,30 +60,25 @@ require("dbconnect.php");
         .sale-badge {
             background-color: #E53935
         }
-     
-        /* เพิ่มเส้นสีดำรอบ Navbar */
-    .navbar {
-            border-radius: 10px
+
+        .carousel-item {
+            height: 10vh;
         }
-        
-    .carousel-item {
-        height: 10vh;
-    }
-    .dark-mode {
-    background-color: gray;
-    color: #fff; 
-}
+
+        .dark-mode {
+            background-color: gray;
+            color: #fff;
+        }
     </style>
 </head>
 
- <body id="body">
-    
-    <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3" >
+<body id="body">
+
+    <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
 
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -84,7 +93,7 @@ require("dbconnect.php");
                             <h5 class="fw-semibold">หนังสือ</h5>
                         </a>
                     </li>
-                  
+
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="store.php">
                             <h5 class="fw-semibold">ร้านหนังสือ</h5>
@@ -96,15 +105,16 @@ require("dbconnect.php");
                         </a>
                     </li>
                     <li class="nav-item mx-3">
-                     <button id="darkModeButton" class="btn btn-primary">
-                    <span id="darkModeIcon">🌙</span> Dark Mode
-                     </button>
-                </li>
+                        <button id="darkModeButton" class="btn btn-primary">
+                            <span id="darkModeIcon">🌙</span> Dark Mode
+                        </button>
+                    </li>
                     <li class="nav-item mx-3 d-lg-none d-xl-none">
                         <a class="nav-link" href="#">
                             <h5 class="fw-semibold">ล็อคอิน</h5>
                         </a>
-                    </li><li class="nav-item mx-3 d-lg-none d-xl-none">
+                    </li>
+                    <li class="nav-item mx-3 d-lg-none d-xl-none">
                         <a class="nav-link" href="register.php">
                             <h5 class="fw-semibold">สมัครสมาชิก</h5>
                         </a>
@@ -114,14 +124,15 @@ require("dbconnect.php");
                     <li class="nav-item mx-1">
                         <a class="nav-link" href="loginform.php">
                             <h5 class="fw-semibold">ลงชื่อเข้าใช้ระบบ</h5>
-                            
+
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link border rounded bg-warning px-3 ms-2 text-white" href="register.php">
                             <h5 class="fw-semibold">สมัครสมาชิก</h5>
                         </a>
-                    </li> </style>
+                    </li>
+                    </style>
                 </ul>
             </div>
         </div>
@@ -137,12 +148,13 @@ require("dbconnect.php");
                     <div class="carousel-caption d-none d-md-block mb-5">
                         <h1 class="mb-1">
                             <img src="favicon.ico"> Book Whales
-                                <img src="favicon.ico">
+                            <img src="favicon.ico">
                         </h1>
 
-                        <p><h1 class="mb-4">
+                        <p>
+                        <h1 class="mb-4">
                             เว็บไซต์รวบรวมร้านหนังสือ
-</h1>
+                        </h1>
                         </p>
                     </div>
                 </div>
@@ -191,7 +203,7 @@ require("dbconnect.php");
             $sql = "SELECT * FROM books ORDER BY books_visit DESC LIMIT 5;";
             $result = mysqli_query($connect, $sql);
             while ($row = $result->fetch_assoc()) {
-                ?>
+            ?>
                 <div class="row justify-content-center mb-3">
                     <div class="col-md-12 col-xl-10">
                         <div class="card shadow-0 border rounded-3">
@@ -239,8 +251,7 @@ require("dbconnect.php");
 
                                         <div class="d-flex flex-column mt-4">
                                             <a href="books_detail.php?book=<?php echo $row["book_id"] ?>">
-                                                <button class="btn btn-primary btn-sm w-100"
-                                                    type="button">รายละเอียดสินค้า</button>
+                                                <button class="btn btn-primary btn-sm w-100" type="button">รายละเอียดสินค้า</button>
                                             </a>
                                             <a href="loginform.php">
                                                 <button class="btn btn-outline-primary btn-sm mt-2 w-100" type="button">
@@ -254,7 +265,7 @@ require("dbconnect.php");
                         </div>
                     </div>
                 </div>
-                <?php
+            <?php
             }
             ?>
         </div>
@@ -266,7 +277,7 @@ require("dbconnect.php");
             GROUP BY orders_detail.book_id ORDER BY COUNT(orders_detail.book_id) DESC LIMIT 5";
             $result = mysqli_query($connect, $sql);
             while ($row = $result->fetch_assoc()) {
-                ?>
+            ?>
                 <div class="row justify-content-center mb-3">
                     <div class="col-md-12 col-xl-10">
                         <div class="card shadow-0 border rounded-3">
@@ -314,8 +325,7 @@ require("dbconnect.php");
 
                                         <div class="d-flex flex-column mt-4">
                                             <a href="books_detail.php?book=<?php echo $row["book_id"] ?>">
-                                                <button class="btn btn-primary btn-sm w-100"
-                                                    type="button">รายละเอียดสินค้า</button>
+                                                <button class="btn btn-primary btn-sm w-100" type="button">รายละเอียดสินค้า</button>
                                             </a>
                                             <a href="loginform.php">
                                                 <button class="btn btn-outline-primary btn-sm mt-2 w-100" type="button">
@@ -329,66 +339,65 @@ require("dbconnect.php");
                         </div>
                     </div>
                 </div>
-                <?php
+            <?php
             }
             ?>
         </div>
 
     </section>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-
-    function setDarkModeCookie(darkMode) {
-        document.cookie = "darkMode=" + darkMode;
-    }
-
-    function getDarkModeCookie() {
-        var name = "darkMode=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(name) == 0) {
-                return cookie.substring(name.length, cookie.length);
-            }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function setDarkModeCookie(darkMode) {
+            document.cookie = "darkMode=" + darkMode;
         }
-        return null;
-    }
 
-    function updateDarkModeFromCookie() {
-        var darkMode = getDarkModeCookie();
-        if (darkMode === "true") {
-            $("#body").addClass("dark-mode");
-            $("#darkModeIcon").text("☀️");
-        } else {
-            $("#body").removeClass("dark-mode");
-            $("#darkModeIcon").text("🌙");
+        function getDarkModeCookie() {
+            var name = "darkMode=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieArray = decodedCookie.split(';');
+            for (var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i];
+                while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(name) == 0) {
+                    return cookie.substring(name.length, cookie.length);
+                }
+            }
+            return null;
         }
-    }
 
-    $(document).ready(function() {
-        // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
-        updateDarkModeFromCookie();
-
-        $("#darkModeButton").click(function() {
-            $("#body").toggleClass("dark-mode");
-
-            // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
-            var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
-            setDarkModeCookie(darkMode);
-
-            // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+        function updateDarkModeFromCookie() {
+            var darkMode = getDarkModeCookie();
             if (darkMode === "true") {
-                $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                $("#body").addClass("dark-mode");
+                $("#darkModeIcon").text("☀️");
             } else {
-                $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                $("#body").removeClass("dark-mode");
+                $("#darkModeIcon").text("🌙");
             }
+        }
+
+        $(document).ready(function() {
+            // เรียกใช้ฟังก์ชันเพื่ออัพเดตสถานะ Dark Mode จากคุกกี้
+            updateDarkModeFromCookie();
+
+            $("#darkModeButton").click(function() {
+                $("#body").toggleClass("dark-mode");
+
+                // สร้างคุกกี้เพื่อบันทึกสถานะ Dark Mode
+                var darkMode = $("#body").hasClass("dark-mode") ? "true" : "false";
+                setDarkModeCookie(darkMode);
+
+                // ตรวจสอบสถานะโหมดและอัพเดตไอคอนตามความเหมาะสม
+                if (darkMode === "true") {
+                    $("#darkModeIcon").text("☀️"); // สลับไปเป็น Light Mode
+                } else {
+                    $("#darkModeIcon").text("🌙"); // สลับไปเป็น Dark Mode
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 
 

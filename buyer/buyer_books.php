@@ -38,10 +38,19 @@ $user = $_SESSION["user"];
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <title>หนังสือ</title>
     <style>
+        .navbar {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: bottom 0.3s ease;
+        }
+
         #darkModeButton {
             background-color: white;
             /* เปลี่ยนสีพื้นหลังเป็นขาว */
-            color:gray;
+            color: black;
             /* เปลี่ยนสีตัวอักษรเป็นดำ */
         }
 
@@ -53,6 +62,10 @@ $user = $_SESSION["user"];
             background-color: #E53935
         }
 
+        .carousel-item {
+            height: 10vh;
+        }
+
         .dark-mode {
             background-color: gray;
             color: #fff;
@@ -60,12 +73,11 @@ $user = $_SESSION["user"];
     </style>
 </head>
 
-<body>
+<body id="body">
     <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -91,14 +103,14 @@ $user = $_SESSION["user"];
                         </a>
                     </li>
                     <li class="nav-item mx-3">
-                        <button id="darkModeButton" class="btn btn-primary">
-                            <span id="darkModeIcon">🌙</span> Dark Mode
-                        </button>
-                    </li>
-                    <li class="nav-item mx-3">
                         <a class="nav-link" href="buyer_checkout.php">
                             <h5 class="fw-semibold">คำสั่งซื้อ</h5>
                         </a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <button id="darkModeButton" class="btn btn-primary">
+                            <span id="darkModeIcon">🌙</span> Dark Mode
+                        </button>
                     </li>
                     <li class="nav-item mx-3 d-lg-none d-xl-none">
                         <a href="userprofile.php" class="nav-link">
@@ -144,8 +156,7 @@ $user = $_SESSION["user"];
                         </a>
                         <a href="buyer_cart.php" class="text-decoration-none">
                             <button class="btn btn-lg position-relative">
-                                <i class="fa-solid fa-cart-shopping"></i><span
-                                    class="badge text-dark position-absolute">
+                                <i class="fa-solid fa-cart-shopping"></i><span class="badge text-dark position-absolute">
                                     <?php echo $meQty; ?>
                                 </span>
                             </button>
@@ -195,8 +206,7 @@ $user = $_SESSION["user"];
     <section>
 
         <form method="GET" action="buyer_search.php" class="d-flex justify-content-center">
-            <button class="btn btn-secondary dropdown-toggle mx-2" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle mx-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 หมวดหนังสือ
             </button>
             <ul class="dropdown-menu">
@@ -217,8 +227,7 @@ $user = $_SESSION["user"];
                 <li><a class="dropdown-item" href="buyer_type_search.php?type=14">ครอบครัว</a></li>
                 <li><a class="dropdown-item" href="buyer_type_search.php?type=15">บ้านและที่อยู่อาศัย</a></li>
             </ul>
-            <input type="text" name="query" class="form-control w-50 d-inline"
-                placeholder="ค้นหาข้อมูลตามชื่อหนังสือ...">
+            <input type="text" name="query" class="form-control w-50 d-inline" placeholder="ค้นหาข้อมูลตามชื่อหนังสือ...">
             <button type="submit" class='btn btn-primary ms-2'><i class='fa-solid fa-magnifying-glass'></i></button>
         </form>
 
@@ -226,14 +235,13 @@ $user = $_SESSION["user"];
             <div class="row">
                 <?php
                 while ($row = $result->fetch_assoc()) {
-                    ?>
+                ?>
                     <div class="col-md-12 col-lg-2 mb-4 mb-lg-2">
 
                         <div class="card">
                             <a href="buyer_books_detail.php?book=<?php echo $row["book_id"]; ?>">
                                 <div class="text-center">
-                                    <img src="<?php echo $row["book_img"]; ?>" style="width:150px; height:220;" width="150"
-                                        height="220" class="card-img-top mt-1" />
+                                    <img src="<?php echo $row["book_img"]; ?>" style="width:150px; height:220;" width="150" height="220" class="card-img-top mt-1" />
                                 </div>
                             </a>
                             <div class="card-body">
@@ -248,14 +256,12 @@ $user = $_SESSION["user"];
                                     <h5 class="mb-0 fw-bold fs-6 text-danger"><span>
                                             <?php echo number_format($row["book_price"], 2) . " "; ?>บาท
                                         </span></h5>
-                                    <a href="buyer_updatecart.php?itemId=<?php echo $row["book_id"]; ?>"
-                                        class="btn btn-primary position-absolute" style="right: 6%; bottom: 9%;"><i
-                                            class="fa-solid fa-cart-shopping"></i></a>
+                                    <a href="buyer_updatecart.php?itemId=<?php echo $row["book_id"]; ?>" class="btn btn-primary position-absolute" style="right: 6%; bottom: 9%;"><i class="fa-solid fa-cart-shopping"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <?php
+                <?php
                 }
                 ?>
             </div>
@@ -264,8 +270,8 @@ $user = $_SESSION["user"];
     </section>
 
     <script src="../assets/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
         // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
         function setDarkModeCookie(darkMode) {
             document.cookie = "darkMode=" + darkMode;
@@ -321,4 +327,5 @@ $user = $_SESSION["user"];
         });
     </script>
 </body>
+
 </html>

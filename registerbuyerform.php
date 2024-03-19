@@ -16,6 +16,15 @@ require("dbconnect.php");
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>สมัครสมาชิก</title>
     <style>
+        .navbar {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: bottom 0.3s ease;
+        }
+
         #darkModeButton {
             background-color: white;
             /* เปลี่ยนสีพื้นหลังเป็นขาว */
@@ -29,11 +38,6 @@ require("dbconnect.php");
 
         .sale-badge {
             background-color: #E53935
-        }
-
-        .navbar {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .carousel-item {

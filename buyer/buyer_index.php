@@ -38,31 +38,22 @@ $user = $_SESSION["user"];
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <title>หนังสือ</title>
     <style>
-        .carousel-item {
-            height: 50vh;
+        .navbar {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: bottom 0.3s ease;
         }
 
-        .footer-cta {
-            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
-        }
-
-        .h5-h {
-            font-size: 50px;
-            color:#263238
-        }
-
-        .price {
-            color: #263238;
-            font-size: 24px;
-        }
-
-        .card-title {
-            color: #263238
-        }
         #darkModeButton {
-        background-color: white; /* เปลี่ยนสีพื้นหลังเป็นขาว */
-        color: black; /* เปลี่ยนสีตัวอักษรเป็นดำ */
-         }
+            background-color: white;
+            /* เปลี่ยนสีพื้นหลังเป็นขาว */
+            color: black;
+            /* เปลี่ยนสีตัวอักษรเป็นดำ */
+        }
+
         .sale {
             color: #E53935
         }
@@ -70,26 +61,23 @@ $user = $_SESSION["user"];
         .sale-badge {
             background-color: #E53935
         }
-     
-        /* เพิ่มเส้นสีดำรอบ Navbar */
-        .navbar {
-            border: 10px solid black;
-        }
-    .carousel-item {
-        height: 10vh;
-    }
-    .dark-mode {
-    background-color: #000;
-    color: #fff; 
-}
-</style>
 
-<body>
+        .carousel-item {
+            height: 10vh;
+        }
+
+        .dark-mode {
+            background-color: gray;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body id="body">
     <nav class="navbar navbar-expand-sm bg-white mx-3 mt-3">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold fs-3 mb-2" href="#">Book Whales</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -115,14 +103,14 @@ $user = $_SESSION["user"];
                         </a>
                     </li>
                     <li class="nav-item mx-3">
-                        <button id="darkModeButton" class="btn btn-primary">
-                            <span id="darkModeIcon">🌙</span> Dark Mode
-                        </button>
-                    </li>
-                    <li class="nav-item mx-3">
                         <a class="nav-link" href="buyer_checkout.php">
                             <h5 class="fw-semibold">คำสั่งซื้อ</h5>
                         </a>
+                    </li>
+                    <li class="nav-item mx-3">
+                        <button id="darkModeButton" class="btn btn-primary">
+                            <span id="darkModeIcon">🌙</span> Dark Mode
+                        </button>
                     </li>
                     <li class="nav-item mx-3 d-lg-none d-xl-none">
                         <a href="userprofile.php" class="nav-link">
@@ -168,8 +156,7 @@ $user = $_SESSION["user"];
                         </a>
                         <a href="buyer_cart.php" class="text-decoration-none">
                             <button class="btn btn-lg position-relative">
-                                <i class="fa-solid fa-cart-shopping"></i><span
-                                    class="badge text-dark position-absolute">
+                                <i class="fa-solid fa-cart-shopping"></i><span class="badge text-dark position-absolute">
                                     <?php echo $meQty; ?>
                                 </span>
                             </button>
@@ -207,7 +194,7 @@ $user = $_SESSION["user"];
                     <div class="carousel-caption d-none d-md-block mb-5">
                         <h1 class="mb-4">
                             <img src="../favicon.ico"> Book Whales
-                                <img src="../favicon.ico">
+                            <img src="../favicon.ico">
                         </h1>
 
                         <p>
@@ -260,7 +247,7 @@ $user = $_SESSION["user"];
             $sql = "SELECT * FROM books ORDER BY books_visit DESC LIMIT 5;";
             $result = mysqli_query($connect, $sql);
             while ($row = $result->fetch_assoc()) {
-                ?>
+            ?>
                 <div class="row justify-content-center mb-3">
                     <div class="col-md-12 col-xl-10">
                         <div class="card shadow-0 border rounded-3">
@@ -308,8 +295,7 @@ $user = $_SESSION["user"];
 
                                         <div class="d-flex flex-column mt-4">
                                             <a href="buyer_books_detail.php?book=<?php echo $row["book_id"] ?>">
-                                                <button class="btn btn-primary btn-sm w-100"
-                                                    type="button">รายละเอียดสินค้า</button>
+                                                <button class="btn btn-primary btn-sm w-100" type="button">รายละเอียดสินค้า</button>
                                             </a>
                                             <a href="buyer_updatecart.php?itemId=<?php echo $row["book_id"]; ?>">
                                                 <button class="btn btn-outline-primary btn-sm mt-2 w-100" type="button">
@@ -323,7 +309,7 @@ $user = $_SESSION["user"];
                         </div>
                     </div>
                 </div>
-                <?php
+            <?php
             }
             ?>
         </div>
@@ -335,7 +321,7 @@ $user = $_SESSION["user"];
             GROUP BY orders_detail.book_id ORDER BY COUNT(orders_detail.book_id) DESC LIMIT 5";
             $result = mysqli_query($connect, $sql);
             while ($row = $result->fetch_assoc()) {
-                ?>
+            ?>
                 <div class="row justify-content-center mb-3">
                     <div class="col-md-12 col-xl-10">
                         <div class="card shadow-0 border rounded-3">
@@ -383,8 +369,7 @@ $user = $_SESSION["user"];
 
                                         <div class="d-flex flex-column mt-4">
                                             <a href="buyer_books_detail.php?book=<?php echo $row["book_id"] ?>">
-                                                <button class="btn btn-primary btn-sm w-100"
-                                                    type="button">รายละเอียดสินค้า</button>
+                                                <button class="btn btn-primary btn-sm w-100" type="button">รายละเอียดสินค้า</button>
                                             </a>
                                             <a href="loginform.php">
                                                 <button class="btn btn-outline-primary btn-sm mt-2 w-100" type="button">
@@ -398,7 +383,7 @@ $user = $_SESSION["user"];
                         </div>
                     </div>
                 </div>
-                <?php
+            <?php
             }
             ?>
         </div>
@@ -406,6 +391,7 @@ $user = $_SESSION["user"];
     </section>
 
     <script src="assets/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
         function setDarkModeCookie(darkMode) {
