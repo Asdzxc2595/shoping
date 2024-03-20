@@ -83,7 +83,7 @@ $rs_b = $connect->query($sql_b);
                             <?php echo $row['stores_address']; ?>
                         </div>
                         <div class="p-2">
-                            <?php echo "อำเภอ" . $row['stores_district'] . " จังหวัด" . $row['stores_province'] . " " . $row['stores_zipcode']; ?>
+                            <?php echo "อำเภอ " . $row['stores_district'] . " จังหวัด " . $row['stores_province'] . " รหัสไปรษณีย์ " . $row['stores_zipcode']; ?>
                         </div>
                         <div class="p-2">เบอร์โทรร้านค้า :
                             <?php echo $row['stores_phone'] ?>

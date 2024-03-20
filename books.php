@@ -56,7 +56,12 @@ require("dbconnect.php");
         }
 
         .navbar {
-            border-radius: 10px
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: bottom 0.3s ease;
         }
 
         .carousel-item {
@@ -204,7 +209,7 @@ require("dbconnect.php");
 
     </section>
     <script src="assets/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="ThemeManager.js"></script>
     <script>
         // สร้างฟังก์ชันเพื่อบันทึกสถานะ Dark Mode ไปยังคุกกี้
         function setDarkModeCookie(darkMode) {
