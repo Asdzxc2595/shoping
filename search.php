@@ -174,10 +174,21 @@ require("dbconnect.php");
         <div class="container-fluid py-5">
             <div class="row">
                 <?php
-
                 if (isset($_GET["query"])) {
                     $searchrs = $_GET["query"];
-                    $sql = "SELECT * FROM books WHERE book_name or book_author LIKE '%$searchrs%' ORDER BY book_name ASC";
+                    // แยกคำในประโยค
+                    $keywords = explode(" ", $searchrs);
+                    // สร้างเงื่อนไข WHERE โดยใช้คำค้นหาแต่ละคำ
+                    $conditions = "";
+                    foreach ($keywords as $key => $keyword) {
+                        $conditions .= "book_name LIKE '%$keyword%' OR book_author LIKE '%$keyword%' OR store_name LIKE '%$keyword%'";
+                        if ($key != count($keywords) - 1) {
+                            $conditions .= " OR ";
+                        }
+                    }
+
+                    // สร้างคำสั่ง SQL ด้วยเงื่อนไขที่ได้
+                    $sql = "SELECT * FROM books WHERE $conditions ORDER BY book_name ASC";
                     $result = mysqli_query($connect, $sql);
                     $count = mysqli_num_rows($result);
 

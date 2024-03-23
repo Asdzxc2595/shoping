@@ -220,7 +220,7 @@ if (isset($_SESSION['qty'])) {
 
     <div class="profile" style="min-height:12rem;max-height:12rem;margin: 1% 25% 5% 25%; ">
         <div class="row g-0 text-center position-relative">
-            <div class="col-6 col-md-4  " style="max-height:10rem;background-image: url('../images/assortment-with-books-dark-background.jpg');max-width:40%;">
+            <div class="col-6 col-md-4  ">
             </div>
             <img class="mt-3 ms-3 position-absolute top-0 start-0 rounded-circle" src="<?php echo $row['stores_img']; ?>" alt="" style="width:110px; height:110px;">
 
@@ -229,13 +229,13 @@ if (isset($_SESSION['qty'])) {
 
                     <div class="p-2">
                         <span>คะแนนร้านหนังสือ :</span>
-                        <div class="rating">
+                        <div class="rating"><h5>
                             <a href="submit_rating.php?rating=5&store=<?php echo $storeId ?>" class="text-decoration-none">☆</a>
                             <a href="submit_rating.php?rating=4&store=<?php echo $storeId ?>" class="text-decoration-none">☆</a>
                             <a href="submit_rating.php?rating=3&store=<?php echo $storeId ?>" class="text-decoration-none">☆</a>
                             <a href="submit_rating.php?rating=2&store=<?php echo $storeId ?>" class="text-decoration-none">☆</a>
                             <a href="submit_rating.php?rating=1&store=<?php echo $storeId ?>" class="text-decoration-none">☆</a>
-                        </div>
+                        </h5></div>
 
                         <?php
                         if ($row["score"] == 0) {
@@ -374,6 +374,7 @@ if (isset($_SESSION['qty'])) {
         });
     });
 </script>
+
 
 
 

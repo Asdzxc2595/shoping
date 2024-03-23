@@ -30,17 +30,14 @@ if (!isset($_SESSION['store'])) {
         <div class="bg-black" style="min-height:2.5rem;">
             <div width="100%" style="margin: 0 25% 0 25%;">
                 <div class="d-flex justify-content-center">
-                    <div class="text-center my-2 fw-semibold fs-5 text-white"><a href="seller_homepage.php"
-                            style="text-decoration: none;color:black;">
+                    <div class="text-center my-2 fw-semibold fs-5 text-white"><a href="seller_homepage.php" style="text-decoration: none;color:black;">
                             <div class="text-white">หน้าร้านหนังสือ</div>
                         </a></div>
-                    <div class="text-center my-2 fw-semibold fs-5 text-white" style="margin-left:4.5rem;"><a
-                            href="seller_editgoods.php" style="text-decoration: none; color:black;">
+                    <div class="text-center my-2 fw-semibold fs-5 text-white" style="margin-left:4.5rem;"><a href="seller_editgoods.php" style="text-decoration: none; color:black;">
                             <div class="text-white">จัดการหนังสือ</div>
                         </a></div>
                     <div class="dropdown " style="margin-left:4.5rem;">
-                        <button class="btn dropdown-toggle fw-semibold fs-5 text-white" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn dropdown-toggle fw-semibold fs-5 text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             หมวดหนังสือ
                         </button>
                         <ul class="dropdown-menu">
@@ -81,27 +78,22 @@ if (!isset($_SESSION['store'])) {
                         <img id="profile-preview" src="#" class="border border-3" width="150" height="195" />
                     </div>
                     <div class="mb-4 pb-2">
-                        <label for="formFile" class="form-label ms-3 mt-3">รูปหน้าปกเล่ม<span
-                                class="text-body-secondary">(อัปโหลดไฟล์ขนาด 150x195pxเท่านั้น)</span></label>
-                        <input class="form-control" type="file" id="formFile" name="book_img"
-                            accept="image/jpeg, image/png" onchange="previewImage(event)" required>
+                        <label for="formFile" class="form-label ms-3 mt-3">รูปหน้าปกเล่ม<span class="text-body-secondary">(อัปโหลดไฟล์ขนาด 150x195pxเท่านั้น)</span></label>
+                        <input class="form-control" type="file" id="formFile" name="book_img" accept="image/jpeg, image/png" onchange="previewImage(event)" required>
                         <div class="invalid-feedback">กรุณาอัปโหลดรูปภาพ</div>
                     </div>
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label ms-3">ชื่อหนังสือ</label>
-                        <input type="text" class="form-control" name="book_name" id="formGroupExampleInput"
-                            placeholder="กรุณากรอกชื่อหนังสือ">
+                        <input type="text" class="form-control" name="book_name" id="formGroupExampleInput" placeholder="กรุณากรอกชื่อหนังสือ">
                     </div>
                     <div class="row g-3">
                         <div class="col">
                             <label class="ms-3">ชื่อผู้แต่ง</label>
-                            <input type="text" class="form-control mt-1" name="book_author"
-                                placeholder="กรุณากรอกชื่อผู้แต่ง">
+                            <input type="text" class="form-control mt-1" name="book_author" placeholder="กรุณากรอกชื่อผู้แต่ง">
                         </div>
                         <div class="col">
                             <label class="ms-3">ชื่อผู้แปล</label>
-                            <input type="text" class="form-control mt-1" name="book_translator"
-                                placeholder="กรุณากรอกชื่อผู้แปล">
+                            <input type="text" class="form-control mt-1" name="book_translator" placeholder="กรุณากรอกชื่อผู้แปล">
                         </div>
                     </div>
 
@@ -123,7 +115,7 @@ if (!isset($_SESSION['store'])) {
                             <label class="ms-3">ประเภทหนังสือ</label>
                             <select class="form-select mt-1" name="book_type" aria-label="Default select example">
                                 <option selected disabled>โปรดเลือกประเภทหนังสือ</option>
-                                <?php foreach ($options as $key => $option): ?>
+                                <?php foreach ($options as $key => $option) : ?>
                                     <option value="<?php echo $key + 1; ?>"><?php echo $option; ?></option>
                                 <?php endforeach; ?>
                             </select>
@@ -132,19 +124,27 @@ if (!isset($_SESSION['store'])) {
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="exampleFormControlTextarea1" class="form-label ms-3">เรื่องย่อ</label>
-                        <textarea class="form-control" style="height:10rem;" name="book_story"
-                            id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control" style="height:10rem;" name="book_story" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="preOrderCheckbox" name="pre_order">
+                        <label class="form-check-label" for="preOrderCheckbox">พรีออเดอร์สินค้า</label>
+                    </div>
+
+                    <div class="mb-3" id="preOrderTextArea" style="display: none;">
+                        <label for="exampleFormControlTextarea1" class="form-label ms-3">ข้อความเพิ่มเติมสำหรับการพรีออเดอร์</label>
+                        <textarea class="form-control" style="height:10rem;" name="pre_order_text" id="preOrderText" rows="3"></textarea>
+                    </div>
+
+
                     <div class="row g-3">
                         <div class="col">
                             <label class="ms-3">ราคา</label>
-                            <input type="ืnumber" class="form-control mt-1" name="book_price"
-                                placeholder="กรุณากรอกราคาต่อเล่ม">
+                            <input type="ืnumber" class="form-control mt-1" name="book_price" placeholder="กรุณากรอกราคาต่อเล่ม">
                         </div>
                         <div class="col">
                             <label class="ms-3">จำนวน</label>
-                            <input type="number" class="form-control mt-1" name="book_stock"
-                                placeholder="กรุณากรอกจำนวนที่จะลงขาย">
+                            <input type="number" class="form-control mt-1" name="book_stock" placeholder="กรุณากรอกจำนวนที่จะลงขาย">
                         </div>
                     </div>
                     <div class="text-center my-3 mt-4">
@@ -159,17 +159,27 @@ if (!isset($_SESSION['store'])) {
 
 <script src="assets/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.js"></script>
 <script>
-
     function previewImage(event) {
         let input = event.target;
         if (input.files && input.files[0]) {
             let reader = new FileReader();
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 document.getElementById('profile-preview').src = e.target.result;
             };
             reader.readAsDataURL(input.files[0]);
         }
     }
 </script>
+<script>
+    document.getElementById('preOrderCheckbox').addEventListener('change', function() {
+        var preOrderTextArea = document.getElementById('preOrderTextArea');
+        if (this.checked) {
+            preOrderTextArea.style.display = 'block';
+        } else {
+            preOrderTextArea.style.display = 'none';
+        }
+    });
+</script>
+
 
 </html>

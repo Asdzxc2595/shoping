@@ -122,6 +122,17 @@ $obj = $rs->fetch_object()
                         <textarea class="form-control" style="height:10rem;" name="book_story"
                             id="exampleFormControlTextarea1" rows="3"><?php echo ($obj->book_story); ?></textarea>
                     </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="preOrderCheckbox" name="pre_order">
+                        <label class="form-check-label" for="preOrderCheckbox">พรีออเดอร์สินค้า</label>
+                    </div>
+
+                    <div class="mb-3" id="preOrderTextArea" style="display: none;">
+                        <label for="exampleFormControlTextarea1" class="form-label ms-3">ข้อความเพิ่มเติมสำหรับการพรีออเดอร์</label>
+                        <textarea class="form-control" style="height:10rem;" name="pre_order" id="preOrderText" rows="3"></textarea>
+                    </div>
+
                     <div class="row g-3">
                         <div class="col">
                             <label class="ms-3">ราคา</label>
@@ -159,6 +170,17 @@ $obj = $rs->fetch_object()
             }
         }
     </script>
+    
+    <script>
+    document.getElementById('preOrderCheckbox').addEventListener('change', function() {
+        var preOrderTextArea = document.getElementById('preOrderTextArea');
+        if (this.checked) {
+            preOrderTextArea.style.display = 'block';
+        } else {
+            preOrderTextArea.style.display = 'none';
+        }
+    });
+</script>
 </body>
 
 </html>

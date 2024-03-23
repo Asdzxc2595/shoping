@@ -1,5 +1,7 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
+}
     ob_start();
     require("dbconnect.php");
 ?>
@@ -78,11 +80,11 @@
                             <h5 class="fw-semibold">จัดการข่าวสาร</h5>
                         </a>
                     </li>
-                    <li class="nav-item mx-3">
+                    <!-- <li class="nav-item mx-3">
                         <a class="nav-link" href="#">
                             <h5 class="fw-semibold">สรุปผลประกอบการ</h5>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="history_orders.php">
                             <h5 class="fw-semibold">ประวัติการขาย</h5>

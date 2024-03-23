@@ -258,7 +258,7 @@ $row = ($result->fetch_assoc());
                         <h2 class="mt-5 mb-2">
                             <?php echo $row['book_price']; ?> บาท
                         </h2>
-                        <a href="buyer_updatecart.php?itemId=<?php echo $book; ?>" class="text-decoration-none">
+                        <a href="buyer_updatecart.php?itemId=<?php echo $book; ?>&a=<?php echo $action; ?>" class="text-decoration-none">
                             <button class="btn btn-dark btn-rounded mr-1" data-toggle="tooltip">
                                 <i class="fa fa-shopping-cart"></i>
                             </button>
@@ -268,9 +268,19 @@ $row = ($result->fetch_assoc());
                                 <i class="fa-solid fa-heart"></i>
                             </button>
                         </a>
-
-
                     </div>
+                    <?php if ($row['pre_order'] == 1): ?>
+    <div class="alert alert-warning mt-3" role="alert">
+        หนังสือนี้เป็นหนังสือพรีออเดอร์
+        <?php if (!empty($row['pre_order'])): ?>
+            <br> <?php echo $row['pre_order']; ?>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+
+
+
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <h3 class="box-title fs-5 fw-semibold mt-5 mb-3">คุณสมบัติสินค้า</h3>
                         <div class="table-responsive">

@@ -21,21 +21,22 @@ $book_type = $_POST["book_type"];
 $book_story = $_POST["book_story"];
 $book_price = $_POST["book_price"];
 $book_stock = $_POST["book_stock"];
+$pre_oder = $_POST["pre_oder"];
 
 $sql = "INSERT INTO books
-            (book_name, book_img, book_author, book_translator, book_story, book_price, book_stock, stores_id, type_id)
-            VALUES ('$book_name','$img','$book_author','$book_translator','$book_story','$book_price','$book_stock','$store','$book_type')";
+            (book_name, book_img, book_author, book_translator, book_story, book_price, book_stock, stores_id, type_id,pre_oder)
+    VALUES ('$pre_oder','$book_name','$img','$book_author','$book_translator','$book_story','$book_price','$book_stock','$store','$book_type')";
 
 $rs = mysqli_query($connect, $sql);
 if ($rs) {
-    ?>
+?>
     <script>
         alert("เพิ่มข้อมูลหนังสือสำเร็จ");
         location.href = "seller_editgoods.php";
     </script>
-    <?php
+<?php
 } else {
-    ?>
+?>
     <script>
         alert("ไม่สามารถเพิ่มได้ กรุณากรอกข้อมูลให้ครบ");
         location.href = "form_insert_goods.php";
