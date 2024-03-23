@@ -95,12 +95,12 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav d-none d-lg-flex d-xl-flex">
+                    <!-- <ul class="navbar-nav d-none d-lg-flex d-xl-flex">
                         <li class="nav-item mx-1">
                             <a class="nav-link" >
                                 <h5 class="fw-semibold"><?php echo $row->users_lastname;?></h5>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a class="nav-link  rounded px-3 ms-2 " href="../logout.php">
                                 <h5 class="fw-semibold">ออกจากระบบ</h5>

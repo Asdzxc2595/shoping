@@ -177,7 +177,7 @@ require("dbconnect.php");
 
                 if (isset($_GET["query"])) {
                     $searchrs = $_GET["query"];
-                    $sql = "SELECT * FROM books WHERE book_name LIKE '%$searchrs%' ORDER BY book_name ASC";
+                    $sql = "SELECT * FROM books WHERE book_name or book_author LIKE '%$searchrs%' ORDER BY book_name ASC";
                     $result = mysqli_query($connect, $sql);
                     $count = mysqli_num_rows($result);
 
