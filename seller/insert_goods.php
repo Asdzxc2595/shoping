@@ -9,8 +9,9 @@ if (!isset($_SESSION['store'])) {
     exit(0);
 }
 $store = $_SESSION['store'];
+$stores_name = $_SESSION['stores_name'];
 
-
+ 
 $img = "../seller/img/" . basename($_FILES["book_img"]["name"]);
 move_uploaded_file($_FILES["book_img"]["tmp_name"], $img);
 
@@ -21,25 +22,27 @@ $book_type = $_POST["book_type"];
 $book_story = $_POST["book_story"];
 $book_price = $_POST["book_price"];
 $book_stock = $_POST["book_stock"];
-$pre_oder = $_POST["pre_oder"];
+$pre_order = $_POST["pre_order"];
+
+
 
 $sql = "INSERT INTO books
-            (book_name, book_img, book_author, book_translator, book_story, book_price, book_stock, stores_id, type_id,pre_oder)
-    VALUES ('$pre_oder','$book_name','$img','$book_author','$book_translator','$book_story','$book_price','$book_stock','$store','$book_type')";
-
+            (book_name, book_img, book_author, book_translator, book_story, book_price, book_stock, stores_id, type_id,pre_oder,store_name)
+    VALUES ('$book_name','$img','$book_author','$book_translator','$book_story','$book_price','$book_stock','$store','$book_type','$pre_order','$stores_name')";
+//echo $sql;
 $rs = mysqli_query($connect, $sql);
 if ($rs) {
 ?>
     <script>
         alert("เพิ่มข้อมูลหนังสือสำเร็จ");
-        location.href = "seller_editgoods.php";
+        //location.href = "seller_editgoods.php";
     </script>
 <?php
 } else {
 ?>
     <script>
         alert("ไม่สามารถเพิ่มได้ กรุณากรอกข้อมูลให้ครบ");
-        location.href = "form_insert_goods.php";
+        //location.href = "form_insert_goods.php";
     </script>
 <?php
 }

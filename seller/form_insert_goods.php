@@ -133,7 +133,7 @@ if (!isset($_SESSION['store'])) {
 
                     <div class="mb-3" id="preOrderTextArea" style="display: none;">
                         <label for="exampleFormControlTextarea1" class="form-label ms-3">ข้อความเพิ่มเติมสำหรับการพรีออเดอร์</label>
-                        <textarea class="form-control" style="height:10rem;" name="pre_order_text" id="preOrderText" rows="3"></textarea>
+                        <textarea class="form-control" style="height:10rem;" name="pre_order" id="preOrderText" rows="3"></textarea>
                     </div>
 
 

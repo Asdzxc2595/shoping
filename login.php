@@ -51,6 +51,7 @@ if ($result->num_rows === 1) {
             $row = mysqli_fetch_assoc($result);
             if($row['stores_permit'] != 0){
                 $_SESSION['store'] = $row['stores_id'];
+                $_SESSION['stores_name'] = $row['stores_name'];
                 header("location: seller/seller_homepage.php");
             }else{
                 echo "
