@@ -268,16 +268,17 @@ $row = ($result->fetch_assoc());
                                 <i class="fa-solid fa-heart"></i>
                             </button>
                         </a>
+                        <?php if($row['pre_oder'] != ''){ ?>
+                            <div class="alert alert-warning mt-3" role="alert">
+                                หนังสือนี้เป็นหนังสือพรีออเดอร์
+                            </div>
+                            <div class="alert alert-warning mt-3" role="alert">
+                                <?PHP ECHO $row['pre_oder']?>
+                            </div>
+                        <?php }else if($row['pre_oder'] == ''){ ?>
+                            
+                        <?php };?>
                     </div>
-                    <?php if ($row['pre_order'] == 1): ?>
-    <div class="alert alert-warning mt-3" role="alert">
-        หนังสือนี้เป็นหนังสือพรีออเดอร์
-        <?php if (!empty($row['pre_order'])): ?>
-            <br> <?php echo $row['pre_order']; ?>
-        <?php endif; ?>
-    </div>
-<?php endif; ?>
-
 
 
 

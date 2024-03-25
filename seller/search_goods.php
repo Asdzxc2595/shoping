@@ -74,7 +74,7 @@ $store = $_SESSION['store'];
             <?php
             if (isset($_GET["query"])) {
                 $searchrs = $_GET["query"];
-                $sql = "SELECT * FROM books WHERE book_name LIKE '%$searchrs%' AND stores_id = '$store' ORDER BY book_name ASC";
+                $sql = "SELECT * FROM books WHERE book_name LIKE '%$searchrs%' and book_author LIKE '$store' AND stores_id = '$store' ORDER BY book_name ASC";
                 $result = mysqli_query($connect, $sql);
                 $count = mysqli_num_rows($result);
 
@@ -130,7 +130,7 @@ $store = $_SESSION['store'];
                     echo "</form>";
                 }
             } else {
-                $sql = "SELECT * FROM books WHERE stores_id = '$store'";
+                $sql = "SELECT * FROM books WHERE stores_id = '$store'OR book_author LIKE '$store'";
                 $result = mysqli_query($connect, $sql);
                 $count = mysqli_num_rows($result);
 

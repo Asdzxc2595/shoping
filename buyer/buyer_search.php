@@ -224,7 +224,7 @@ if (isset($_SESSION['qty'])) {
             <div class="row">
                 <?php
                 if (isset($_GET["query"])) {
-                    $searchrs = $_GET["query"];
+                    //$searchrs = $_GET["query"];
 
                     // แยกคำในประโยค
                     $keywords = explode(" ", $searchrs);

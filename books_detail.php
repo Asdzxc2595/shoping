@@ -165,15 +165,26 @@ $row = ($result->fetch_assoc());
                                 ลงชื่อเข้าใช้ระบบ
                             </button>
                         </a>
-
+                        <?php if($row['pre_oder'] != ''){ ?>
+                            <div class="alert alert-warning mt-3" role="alert">
+                                หนังสือนี้เป็นหนังสือพรีออเดอร์
+                            </div>
+                            <div class="alert alert-warning mt-3" role="alert">
+                                <?PHP ECHO $row['pre_oder']?>
+                            </div>
+                        <?php }else if($row['pre_oder'] == ''){ ?>
+                            
+                        <?php };?>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <h3 class="box-title fs-5 fw-semibold mt-5 mb-3">คุณสมบัติสินค้า</h3>
                         <div class="table-responsive">
                             <table class="table table-striped table-product">
                                 <tbody>
-                                    <tr><h4>
-                                        <td width="390">ผู้เขียน</td></h4>
+                                    <tr>
+                                        <h4>
+                                            <td width="390">ผู้เขียน</td>
+                                        </h4>
                                         <td>
                                             <?php echo $row['book_author'] ?>
                                         </td>
