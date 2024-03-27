@@ -34,17 +34,14 @@ $store = $_SESSION['store'];
         <div class="bg-black" style="min-height:2.5rem;">
             <div width="100%" style="margin: 0 25% 0 25%;">
                 <div class="d-flex justify-content-center">
-                    <div class="text-center my-2 fw-semibold fs-5 text-white"><a href="seller_homepage.php"
-                            style="text-decoration: none;color:black;">
+                    <div class="text-center my-2 fw-semibold fs-5 text-white"><a href="seller_homepage.php" style="text-decoration: none;color:black;">
                             <div class="text-white">หน้าร้านหนังสือ</div>
                         </a></div>
-                    <div class="text-center my-2 fw-semibold fs-5 text-white" style="margin-left:4.5rem;"><a href="seller_editgoods.php"
-                            style="text-decoration: none; color:black;">
+                    <div class="text-center my-2 fw-semibold fs-5 text-white" style="margin-left:4.5rem;"><a href="seller_editgoods.php" style="text-decoration: none; color:black;">
                             <div class="text-white">จัดการหนังสือ</div>
                         </a></div>
                     <div class="dropdown " style="margin-left:4.5rem;">
-                        <button class="btn dropdown-toggle fw-semibold fs-5 text-white" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn dropdown-toggle fw-semibold fs-5 text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             หมวดหนังสือ
                         </button>
                         <ul class="dropdown-menu">
@@ -71,25 +68,25 @@ $store = $_SESSION['store'];
     </div>
 
 
-            <?php
-            if (isset($_GET["query"])) {
-                $searchrs = $_GET["query"];
-                $sql = "SELECT * FROM books WHERE book_name LIKE '%$searchrs%' and book_author LIKE '$store' AND stores_id = '$store' ORDER BY book_name ASC";
-                $result = mysqli_query($connect, $sql);
-                $count = mysqli_num_rows($result);
+    <?php
+    if (isset($_GET["query"])) {
+        $searchrs = $_GET["query"];
+        $sql = "SELECT * FROM books WHERE book_name LIKE '%$searchrs%' and book_author LIKE '$store' AND stores_id = '$store' ORDER BY book_name ASC";
+        $result = mysqli_query($connect, $sql);
+        $count = mysqli_num_rows($result);
 
-                $order = 1;
-                
-                if ($result->num_rows > 0) {
-                    echo "<form method='GET' action='search_goods.php' class='d-flex justify-content-center'>";
-                    echo "<input type='text' name='query' class='form-control w-50 d-inline' placeholder='ค้นหาข้อมูลตามชื่อหนังสือ...'>";
-                    echo "<button type='submit' class='btn btn-primary ms-2'><i class='fa-solid fa-magnifying-glass'></i></button>";
-                    echo "<button type='button' class='btn btn-success mx-1'><a href='form_insert_goods.php'><i class='fa-solid fa-plus text-white'></i></a></button>";
-                    echo "</form>";
-                    echo "<div class='container-fluid d-flex justify-content-center table-responsive mt-3'>";
-                    echo "<table class='table table-bordered w-auto'>";
-                    echo "<thead class='text-center'>";
-                    echo "<tr>
+        $order = 1;
+
+        if ($result->num_rows > 0) {
+            echo "<form method='GET' action='search_goods.php' class='d-flex justify-content-center'>";
+            echo "<input type='text' name='query' class='form-control w-50 d-inline' placeholder='ค้นหาข้อมูลตามชื่อหนังสือ...'>";
+            echo "<button type='submit' class='btn btn-primary ms-2'><i class='fa-solid fa-magnifying-glass'></i></button>";
+            echo "<button type='button' class='btn btn-success mx-1'><a href='form_insert_goods.php'><i class='fa-solid fa-plus text-white'></i></a></button>";
+            echo "</form>";
+            echo "<div class='container-fluid d-flex justify-content-center table-responsive mt-3'>";
+            echo "<table class='table table-bordered w-auto'>";
+            echo "<thead class='text-center'>";
+            echo "<tr>
                             <th scope='col'>ลำดับ</th>
                             <th scope='col'>ชื่อหนังสือ</th>
                             <th scope='col'>รูปปกหนังสือ</th>
@@ -100,94 +97,97 @@ $store = $_SESSION['store'];
                             <th scope='col'>จำนวนสินค้า</th>
                             <th scope='col'>การกระทำ</th>
                           </tr>";
-                    echo "</thead>";
-                    echo "<tbody>";
-    
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr >";
-                    echo "<th scope='row' class='text-center' style='width: 100px;'>" . $order++ . "</th>";
-                    echo "<td>". $row["book_name"] . "</td>";
-                    echo "<td class='text-center'><img src='" . $row["book_img"] . "' width='100'></td>";
-                    echo "<td>" . $row["book_author"] . "</td>";
-                    echo "<td>" . $row["book_translator"] . "</td>";
-                    echo "<td class='w-25'>" . $row["book_story"] . "</td>";
-                    echo "<td class='text-center'>" . $row["book_price"] . "</td>";
-                    echo "<td class='text-center'>" . $row["book_stock"] . "</td>";
-                    echo "<td class='text-center'><a href='form_edit_goods.php?id=" . $row["book_id"] . "' class='text-decoration-none text-white'><button class='btn btn-warning mx-1'><i class='fa-solid fa-pen-to-square text-white'></i></button></a>
-                    <a href='delete_goods.php?id=" . $row["book_id"] . "' class='text-decoration-none' onclick=\"return confirm('คุณต้องการลบหนังสือเล่มนี้หรือไม่')\"><button class='btn btn-danger'><i class='fa-solid fa-trash'></i></button></a></td>";
-                    echo "</tr>";
-                }
-                
-                echo "</tbody>";
-                echo "</table>";
-                echo "</div>";
-                } else {
-                    echo "<div class='alert alert-danger mx-3' role='alert'>ไม่พบสินค้าหนังสือ</div>";
-                    echo "<form method='GET' action='seller_search.php' class='d-flex justify-content-center'>";
-                    echo "<input type='text' name='query' class='form-control w-50 d-inline' placeholder='ค้นหาข้อมูลตามชื่อหนังสือ...'>";
-                    echo "<button type='submit' class='btn btn-primary ms-2'><i class='fa-solid fa-magnifying-glass'></i></button>";
-                    echo "<button type='button' class='btn btn-success mx-1'><a href='form_insert_goods.php'><i class='fa-solid fa-plus text-white'></i></a></button>";
-                    echo "</form>";
-                }
-            } else {
-                $sql = "SELECT * FROM books WHERE stores_id = '$store'OR book_author LIKE '$store'";
-                $result = mysqli_query($connect, $sql);
-                $count = mysqli_num_rows($result);
+            echo "</thead>";
+            echo "<tbody>";
 
-                $order = 1;
-                
-                if ($result->num_rows > 0) {
-                    echo "<form method='GET' action='search_goods.php' class='d-flex justify-content-center'>";
-                    echo "<input type='text' name='query' class='form-control w-50 d-inline' placeholder='ค้นหาข้อมูลตามชื่อหนังสือ...'>";
-                    echo "<button type='submit' class='btn btn-primary ms-2'><i class='fa-solid fa-magnifying-glass'></i></button>";
-                    echo "<button type='button' class='btn btn-success mx-1'><a href='form_insert_goods.php'><i class='fa-solid fa-plus text-white'></i></a></button>";
-                    echo "</form>";
-                    echo "<div class='container-fluid d-flex justify-content-center table-responsive mt-3'>";
-                    echo "<table class='table table-bordered w-auto'>";
-                    echo "<thead class='text-center'>";
-                    echo "<tr>
-                            <th scope='col'>ลำดับ</th>
-                            <th scope='col'>ชื่อหนังสือ</th>
-                            <th scope='col'>รูปปกหนังสือ</th>
-                            <th scope='col'>ชื่อผู้เขียน</th>
-                            <th scope='col'>ชื่อผู้แปล</th>
-                            <th scope='col'>เรื่องย่อ</th>
-                            <th scope='col'>ราคาปกติ</th>
-                            <th scope='col'>จำนวนสินค้า</th>
-                            <th scope='col'>การกระทำ</th>
-                          </tr>";
-                    echo "</thead>";
-                    echo "<tbody>";
-    
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr >";
-                    echo "<th scope='row' class='text-center' style='width: 100px;'>" . $order++ . "</th>";
-                    echo "<td>". $row["book_name"] . "</td>";
-                    echo "<td class='text-center'><img src='" . $row["book_img"] . "' width='100'></td>";
-                    echo "<td>" . $row["book_author"] . "</td>";
-                    echo "<td>" . $row["book_translator"] . "</td>";
-                    echo "<td class='w-25'>" . $row["book_story"] . "</td>";
-                    echo "<td class='text-center'>" . $row["book_price"] . "</td>";
-                    echo "<td class='text-center'>" . $row["book_stock"] . "</td>";
-                    echo "<td class='text-center'><a href='form_edit_goods.php?id=" . $row["book_id"] . "' class='text-decoration-none text-white'><button class='btn btn-warning mx-1'><i class='fa-solid fa-pen-to-square text-white'></i></button></a>
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr >";
+                echo "<th scope='row' class='text-center' style='width: 100px;'>" . $order++ . "</th>";
+                echo "<td>" . $row["book_name"] . "</td>";
+                echo "<td class='text-center'><img src='" . $row["book_img"] . "' width='100'></td>";
+                echo "<td>" . $row["book_author"] . "</td>";
+                echo "<td>" . $row["book_translator"] . "</td>";
+                echo "<td class='w-25'>" . $row["book_story"] . "</td>";
+                echo "<td class='text-center'>" . $row["book_price"] . "</td>";
+                echo "<td class='text-center'>" . $row["book_stock"] . "</td>";
+                echo "<td class='text-center'><a href='form_edit_goods.php?id=" . $row["book_id"] . "' class='text-decoration-none text-white'><button class='btn btn-warning mx-1'><i class='fa-solid fa-pen-to-square text-white'></i></button></a>
                     <a href='delete_goods.php?id=" . $row["book_id"] . "' class='text-decoration-none' onclick=\"return confirm('คุณต้องการลบหนังสือเล่มนี้หรือไม่')\"><button class='btn btn-danger'><i class='fa-solid fa-trash'></i></button></a></td>";
-                    echo "</tr>";
-                }
-                
-                echo "</tbody>";
-                echo "</table>";
-                echo "</div>";
-                } else {
-                    echo "<div class='alert alert-danger mx-3' role='alert'>ไม่พบสินค้าหนังสือ</div>";
-                    echo "<form method='GET' action='seller_search.php' class='d-flex justify-content-center'>";
-                    echo "<input type='text' name='query' class='form-control w-50 d-inline' placeholder='ค้นหาข้อมูลตามชื่อหนังสือ...'>";
-                    echo "<button type='submit' class='btn btn-primary ms-2'><i class='fa-solid fa-magnifying-glass'></i></button>";
-                    echo "<button type='button' class='btn btn-success mx-1'><a href='form_insert_goods.php'><i class='fa-solid fa-plus text-white'></i></a></button>";
-                    echo "</form>";
-                }
+                echo "</tr>";
             }
-               
-            ?>
+
+            echo "</tbody>";
+            echo "</table>";
+            echo "</div>";
+        } else {
+            echo "<div class='alert alert-danger mx-3' role='alert'>ไม่พบสินค้าหนังสือ</div>";
+            echo "<form method='GET' action='seller_search.php' class='d-flex justify-content-center'>";
+            echo "<input type='text' name='query' class='form-control w-50 d-inline' placeholder='ค้นหาข้อมูลตามชื่อหนังสือ...'>";
+            echo "<button type='submit' class='btn btn-primary ms-2'><i class='fa-solid fa-magnifying-glass'></i></button>";
+            echo "<button type='button' class='btn btn-success mx-1'><a href='form_insert_goods.php'><i class='fa-solid fa-plus text-white'></i></a></button>";
+            echo "</form>";
+        }
+    } else {
+        if (isset($_GET["query"])) {
+            $searchrs = $_GET["query"];
+            $sql = "SELECT * FROM books WHERE book_name LIKE '%$searchrs%' and book_author LIKE '$store' AND stores_id = '$store' ORDER BY book_name ASC";
+            $result = mysqli_query($connect, $sql);
+            $count = mysqli_num_rows($result);
+
+            $order = 1;
+
+            if ($result->num_rows > 0) {
+                echo "<form method='GET' action='search_goods.php' class='d-flex justify-content-center'>";
+                echo "<input type='text' name='query' class='form-control w-50 d-inline' placeholder='ค้นหาข้อมูลตามชื่อหนังสือ...'>";
+                echo "<button type='submit' class='btn btn-primary ms-2'><i class='fa-solid fa-magnifying-glass'></i></button>";
+                echo "<button type='button' class='btn btn-success mx-1'><a href='form_insert_goods.php'><i class='fa-solid fa-plus text-white'></i></a></button>";
+                echo "</form>";
+                echo "<div class='container-fluid d-flex justify-content-center table-responsive mt-3'>";
+                echo "<table class='table table-bordered w-auto'>";
+                echo "<thead class='text-center'>";
+                echo "<tr>
+                                <th scope='col'>ลำดับ</th>
+                                <th scope='col'>ชื่อหนังสือ</th>
+                                <th scope='col'>รูปปกหนังสือ</th>
+                                <th scope='col'>ชื่อผู้เขียน</th>
+                                <th scope='col'>ชื่อผู้แปล</th>
+                                <th scope='col'>เรื่องย่อ</th>
+                                <th scope='col'>ราคาปกติ</th>
+                                <th scope='col'>จำนวนสินค้า</th>
+                                <th scope='col'>การกระทำ</th>
+                              </tr>";
+                echo "</thead>";
+                echo "<tbody>";
+
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr >";
+                    echo "<th scope='row' class='text-center' style='width: 100px;'>" . $order++ . "</th>";
+                    echo "<td>" . $row["book_name"] . "</td>";
+                    echo "<td class='text-center'><img src='" . $row["book_img"] . "' width='100'></td>";
+                    echo "<td>" . $row["book_author"] . "</td>";
+                    echo "<td>" . $row["book_translator"] . "</td>";
+                    echo "<td class='w-25'>" . $row["book_story"] . "</td>";
+                    echo "<td class='text-center'>" . $row["book_price"] . "</td>";
+                    echo "<td class='text-center'>" . $row["book_stock"] . "</td>";
+                    echo "<td class='text-center'><a href='form_edit_goods.php?id=" . $row["book_id"] . "' class='text-decoration-none text-white'><button class='btn btn-warning mx-1'><i class='fa-solid fa-pen-to-square text-white'></i></button></a>
+                        <a href='delete_goods.php?id=" . $row["book_id"] . "' class='text-decoration-none' onclick=\"return confirm('คุณต้องการลบหนังสือเล่มนี้หรือไม่')\"><button class='btn btn-danger'><i class='fa-solid fa-trash'></i></button></a></td>";
+                    echo "</tr>";
+                }
+
+                echo "</tbody>";
+                echo "</table>";
+                echo "</div>";
+            } else {
+                echo "<div class='alert alert-danger mx-3' role='alert'>ไม่พบสินค้าหนังสือ</div>";
+                echo "<form method='GET' action='seller_search.php' class='d-flex justify-content-center'>";
+                echo "<input type='text' name='query' class='form-control w-50 d-inline' placeholder='ค้นหาข้อมูลตามชื่อหนังสือ...'>";
+                echo "<button type='submit' class='btn btn-primary ms-2'><i class='fa-solid fa-magnifying-glass'></i></button>";
+                echo "<button type='button' class='btn btn-success mx-1'><a href='form_insert_goods.php'><i class='fa-solid fa-plus text-white'></i></a></button>";
+                echo "</form>";
+            }
+        }
+    }
+
+    ?>
 
 </body>
 

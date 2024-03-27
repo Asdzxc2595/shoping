@@ -132,7 +132,7 @@ require("dbconnect.php");
 
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="password">รหัสผ่าน</label>
-                                        <input type="password" id="password" class="form-control form-control-lg" name="password" pattern={4,}$ required />
+                                        <input type="password" id="password" class="form-control form-control-lg" name="password" pattern=".{8,}" required />
                                         <div class="invalid-feedback">กรุณากรอกรหัสผ่านอย่างน้อย4ตัว</div>
                                     </div>
 
@@ -161,31 +161,32 @@ require("dbconnect.php");
                                     <div class="row">
                                         <div class="col-md-6 mb-4 pb-2">
                                             <label class="form-label" for="firstname">ชื่อจริง</label>
-                                            <input type="text" id="firstname" class="form-control form-control-lg" name="firstname" required />
+                                            <input type="text" id="firstname" class="form-control form-control-lg" name="firstname" pattern="[a-zA-Zก-๙]+" title="โปรดป้อนตัวอักษรเท่านั้น" required />
                                             <div class="invalid-feedback">กรุณากรอกชื่อจริง</div>
                                         </div>
                                         <div class="col-md-6 mb-4 pb-2">
                                             <label class="form-label" for="lastname">นามสกุล</label>
-                                            <input type="text" id="lastname" class="form-control form-control-lg" name="lastname" required />
+                                            <input type="text" id="lastname" class="form-control form-control-lg" name="lastname" pattern="[a-zA-Zก-๙]+" title="โปรดป้อนตัวอักษรเท่านั้น" required />
                                             <div class="invalid-feedback">กรุณากรอกนามสกุล</div>
                                         </div>
                                     </div>
 
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="address">ที่อยู่</label>
-                                        <textarea class="form-control" id="address" style="height: 100px" name="address" required></textarea>
+                                        <textarea class="form-control" id="address" style="height: 100px" name="address" pattern="^\S+$" title="ระบุข้อมูล โดยไม่มีเว้นวรรค" required></textarea>
                                         <div class="invalid-feedback">กรุณากรอกข้อมูลที่อยู่</div>
                                     </div>
 
+
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="district">เขต/อำเภอ</label>
-                                        <input type="text" id="district" class="form-control form-control-lg" name="district" required />
+                                        <input type="text" id="district" class="form-control form-control-lg" name="district" pattern="[a-zA-Zก-๙]+" title="โปรดป้อนตัวอักษรเท่านั้น" required />
                                         <div class="invalid-feedback">กรุณากรอกเขต/อำเภอ</div>
                                     </div>
 
                                     <div class="mb-4 pb-2">
                                         <label class="form-label" for="province">จังหวัด</label>
-                                        <input type="text" id="province" class="form-control form-control-lg" name="province" required />
+                                        <input type="text" id="province" class="form-control form-control-lg" name="province" pattern="[a-zA-Zก-๙]+" title="โปรดป้อนตัวอักษรเท่านั้น" required />
                                         <div class="invalid-feedback">กรุณากรอกจังหวัด</div>
                                     </div>
 
@@ -193,12 +194,12 @@ require("dbconnect.php");
                                         <div class="col-md-5 mb-4 pb-2">
                                             <label class="form-label" for="zipcode">รหัสไปรษณีย์</label>
                                             <input type="text" id="zipcode" class="form-control form-control-lg" name="zipcode" pattern="[0-9]{5}" required />
-                                            <div class="invalid-feedback">กรุณากรอกรหัสไปรษณีย์ให้ครบ</div>
+                                            <div class="invalid-feedback">กรุณากรอกรหัสไปรษณีย์ให้ถูกต้อง</div>
                                         </div>
                                         <div class="col-md-7 mb-4 pb-2">
                                             <label class="form-label" for="phone">เบอร์มือถือ</label>
                                             <input type="text" id="phone" class="form-control form-control-lg" name="phone" pattern="[0-9]{10}" required />
-                                            <div class="invalid-feedback">กรุณากรอกเบอร์มือถือให้ครบ</div>
+                                            <div class="invalid-feedback">กรุณากรอกเบอร์มือถือให้ถูกต้อง</div>
                                         </div>
                                     </div>
 
@@ -241,15 +242,21 @@ require("dbconnect.php");
             confirm_password = document.getElementById("confirmpassword");
 
         function validatePassword() {
-            if (password.value != confirm_password.value) {
+            let passwordValue = password.value;
+            let confirmPasswordValue = confirm_password.value;
+
+            if (passwordValue.length < 6) {
+                confirm_password.setCustomValidity("รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร");
+            } else if (passwordValue !== confirmPasswordValue) {
                 confirm_password.setCustomValidity("รหัสผ่านไม่ตรงกัน");
             } else {
                 confirm_password.setCustomValidity('');
             }
         }
 
-        password.onchange = validatePassword;
-        confirm_password.onkeyup = validatePassword;
+        password.addEventListener('input', validatePassword);
+        confirm_password.addEventListener('input', validatePassword);
+
 
         // Preview images after upload
         function previewImage(event) {

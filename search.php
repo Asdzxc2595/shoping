@@ -183,7 +183,7 @@ require("dbconnect.php");
                     // สร้างเงื่อนไข WHERE โดยใช้คำค้นหาแต่ละคำ
                     $conditions = "";
                     foreach ($keywords as $key => $keyword) {
-                        $conditions .= "book_name LIKE '%$keyword%' OR book_author LIKE '%$keyword%' OR store_name LIKE '%$keyword%'";
+                        $conditions .= "book_name LIKE '%$keyword%' OR book_author LIKE '%$keyword%' OR book_id LIKE '%$keyword%'OR store_name LIKE '%$keyword%'";
                         if ($key != count($keywords) - 1) {
                             $conditions .= " OR ";
                         }
